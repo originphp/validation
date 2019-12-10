@@ -51,6 +51,7 @@ class Validation
                 $result = $value > $afterDate;
             }
         }
+
         return $result;
     }
 
@@ -133,6 +134,10 @@ class Validation
      */
     public static function creditCard($value, string $type = 'any') : bool
     {
+        if (!is_string($value) and !is_integer($value)) {
+            return false;
+        }
+
         $value = str_replace([' ','-'], '', $value);
 
         // 06.12.2019 - Decided to write the regex rules from scratch since
@@ -201,6 +206,9 @@ class Validation
      */
     public static function dateFormat($value, string $format) : bool
     {
+        if (! is_string($value)) {
+            return false;
+        }
         $dateTime = DateTime::createFromFormat($format, $value);
 
         return ($dateTime !== false and $dateTime->format($format) === $value);
@@ -236,7 +244,7 @@ class Validation
      * @param boolean $checkDNS Wether to check if the domain part has MX records
      * @return boolean
      */
-    public static function email(string $value, bool $checkDNS = false) : bool
+    public static function email($value, bool $checkDNS = false) : bool
     {
         $result = (filter_var($value, FILTER_VALIDATE_EMAIL) !== false);
 
@@ -270,6 +278,9 @@ class Validation
       */
     public static function extension($value, $extensions = []) : bool
     {
+        if (!is_string($value) and !is_array($value)) {
+            return false;
+        }
         if (is_array($value)) {
             $value = $value['name'] ?? 'none';
         }
@@ -353,7 +364,7 @@ class Validation
     {
         $pattern = '/^#[0-9a-f]{6}$/i';
 
-        return static::regex($value, $pattern);
+        return is_string($value) and static::regex($value, $pattern);
     }
 
     /**
@@ -437,7 +448,7 @@ class Validation
      */
     public static function iban($value) : bool
     {
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             return false;
         }
         $value = str_replace([' ','-'], '', strtoupper($value));
@@ -548,6 +559,10 @@ class Validation
      */
     public static function luhn($value) : bool
     {
+        if ((! is_string($value) and !is_integer($value)) or strlen($value) < 2) {
+            return false;
+        }
+        
         // extract the checkdigit from the number
         $valueDigit = $value[strlen($value) - 1];
 
@@ -711,7 +726,7 @@ class Validation
      * @param string $pattern
      * @return boolean
      */
-    public static function regex(string $value, string $pattern) : bool
+    public static function regex($value, string $pattern) : bool
     {
         return (bool) preg_match($pattern, $value);
     }
@@ -790,10 +805,10 @@ class Validation
      * @param boolean $caseInsensitive Wether to allow uppercase letters
      * @return boolean
      */
-    public static function uuid(string $value, bool $caseInsensitive = false) : bool
+    public static function uuid($value, bool $caseInsensitive = false) : bool
     {
         $pattern = '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/' . ($caseInsensitive ? 'i' : null);
 
-        return static::regex($value, $pattern);
+        return is_string($value) and static::regex($value, $pattern);
     }
 }

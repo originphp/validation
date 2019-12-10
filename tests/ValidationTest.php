@@ -19,6 +19,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Validation::after('foo', 'tomorrow'));
         $this->assertFalse(Validation::after('today', 'tomorrow'));
         $this->assertTrue(Validation::after('tomorrow', 'today'));
+        $this->assertFalse(Validation::after(null, 'tomorrow'));
     }
 
     public function testArray()
@@ -33,11 +34,13 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Validation::before('foo', 'now'));
         $this->assertTrue(Validation::before('today', 'tomorrow'));
         $this->assertFalse(Validation::before('tomorrow', 'today'));
+        $this->assertFalse(Validation::before(null, 'today'));
     }
     public function testAlpha()
     {
         $this->assertTrue(Validation::alpha('foo'));
         $this->assertFalse(Validation::alpha('f00'));
+        $this->assertFalse(Validation::alpha(null));
     }
 
     public function testAlphaNumeric()
@@ -69,12 +72,14 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
 
         $this->assertTrue(Validation::date('01/01/2017', 'd/m/Y'));
         $this->assertFalse(Validation::date('01/14/2017', 'd/m/Y'));
+        $this->assertFalse(Validation::date(null, 'd/m/Y'));
     }
 
     public function testDateTime()
     {
         $this->assertTrue(Validation::datetime('2017-01-01 17:32:00'));
         $this->assertFalse(Validation::datetime('2017-01-01 28:32:00'));
+        $this->assertFalse(Validation::datetime(null));
     }
 
     public function testDecimal()
@@ -85,6 +90,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::decimal('2048.512'));
         $this->assertFalse(Validation::decimal(32));
         $this->assertFalse(Validation::decimal(64));
+        $this->assertFalse(Validation::decimal(null));
     }
 
     public function testFloat()
@@ -94,6 +100,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Validation::float(123456));
         $this->assertFalse(Validation::float('one'));
         $this->assertFalse(Validation::float('12345'));
+        $this->assertFalse(Validation::float(null));
     }
 
     public function testLuhn()
@@ -102,6 +109,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::luhn('79927398713'));
        
         $this->assertTrue(Validation::luhn('4556737586899855'));
+        $this->assertFalse(Validation::luhn(null));
     }
     //19.117.63.126
     public function testIp()
@@ -109,6 +117,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::ip('19.117.63.126'));
         $this->assertTrue(Validation::ip('19.117.63.126', 'ipv4'));
         $this->assertFalse(Validation::ip('19.117.63.126', 'ipv6'));
+        $this->assertFalse(Validation::ip(null));
         
         $this->assertTrue(Validation::ip('684D:1111:222:3333:4444:5555:6:77'));
         $this->assertTrue(Validation::ip('684D:1111:222:3333:4444:5555:6:77', 'ipv6'));
@@ -117,6 +126,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
 
     public function testIpRange()
     {
+        $this->assertFalse(Validation::ipRange(null, '192.168.1.1', '192.168.1.10'));
         $this->assertTrue(Validation::ipRange('192.168.1.7', '192.168.1.1', '192.168.1.10'));
         $this->assertFalse(Validation::ipRange('192.168.1.1', '192.168.1.7', '192.168.1.10'));
         $this->assertFalse(Validation::ipRange('foo', '192.168.1.1', '192.168.1.10'));
@@ -135,6 +145,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Validation::integer(-10.00));
         $this->assertFalse(Validation::integer('-10.00'));
         $this->assertFalse(Validation::integer(true));
+        $this->assertFalse(Validation::integer(null));
     }
 
     public function testIban()
@@ -150,7 +161,9 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreditCard()
     {
+        $this->assertFalse(Validation::creditCard(null));
         $this->assertTrue(Validation::creditCard('5500 0000 0000 0004'));
+        $this->assertTrue(Validation::creditCard(5500000000000004));
 
         $this->assertFalse(Validation::creditCard('5500 0000 0000 0004', 'foo')); // invalid type
         $this->assertFalse(Validation::creditCard('1234 5678 9012 3456')); // invalid card number
@@ -218,6 +231,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::email('foo@originphp.com'));
         $this->assertTrue(Validation::email('foo@some-random-domain-that-definietley-does-not-exist.com'));
         $this->assertFalse(Validation::email('foo@some-random-domain-that-definietley-does-not-exist.com', true));
+        $this->assertFalse(Validation::email(null));
     }
 
     public function testExtension()
@@ -226,6 +240,8 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::extension('bootstrap.css', ['js', 'css']));
         $this->assertTrue(Validation::extension('Logo.JPG', ['gif', 'png', 'jpg']));
         $this->assertFalse(Validation::extension('bootstrap.js', 'css'));
+
+        $this->assertFalse(Validation::extension(null, 'css'));
 
         $post = ['name' => 'bootstrap.css'];
         $this->assertTrue(Validation::extension($post, 'css'));
@@ -242,13 +258,17 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
     public function testEqualTo()
     {
         $this->assertTrue(Validation::equalTo(5, '5'));
+        $this->assertTrue(Validation::equalTo(null, null));
         $this->assertFalse(Validation::equalTo(10, 5));
+        $this->assertFalse(Validation::equalTo(null, 5));
+        $this->assertFalse(Validation::equalTo(10, null));
     }
 
     public function testGreaterThan()
     {
         $this->assertTrue(Validation::greaterThan(2, 1));
         $this->assertFalse(Validation::greaterThan(2, 2));
+        $this->assertFalse(Validation::greaterThan(null, 2));
     }
 
     public function testLessThan()
@@ -291,17 +311,20 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertTrue(Validation::hexColor('#f5f5f5'));
         $this->assertFalse(Validation::hexColor('#f5f')); // this can be the case but now validate its not
+        $this->assertFalse(Validation::hexColor(null));
     }
 
     public function testInList()
     {
         $this->assertTrue(Validation::in('new', ['draft', 'new', 'published']));
         $this->assertFalse(Validation::in('dropped', ['draft', 'new', 'published']));
+        $this->assertFalse(Validation::in(null, ['draft', 'new', 'published']));
     }
 
     public function testNotInList()
     {
         $this->assertFalse(Validation::notIn('new', ['draft', 'new', 'published']));
+        $this->assertFalse(Validation::notIn(null, [null, 'new', 'published']));
         $this->assertTrue(Validation::notIn('dropped', ['draft', 'new', 'published']));
     }
 
@@ -321,6 +344,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
 
         // Check invalid
         $this->assertFalse(Validation::fqdn('https://www.google.co.uk'));
+        $this->assertFalse(Validation::fqdn(null));
 
         // check using DNS records
         $this->assertTrue(Validation::fqdn('www.google.com', true));
@@ -333,12 +357,15 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::present(['foo' => 'bar'], 'foo'));
         $this->assertFalse(Validation::present(['foo' => 'bar'], 'bar'));
         $this->assertFalse(Validation::present([], 'bar'));
+        $this->assertFalse(Validation::present(null, 'bar'));
+        $this->assertFalse(Validation::present('foo', null));
     }
 
     public function testMacAddress()
     {
         $this->assertTrue(Validation::macAddress('00:0a:95:9d:68:16'));
         $this->assertFalse(Validation::macAddress('00:0a:9Z:9d:68:16'));
+        $this->assertFalse(Validation::macAddress(null));
     }
 
     public function testMd5()
