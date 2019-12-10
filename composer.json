@@ -1,0 +1,39 @@
+{
+    "name": "originphp/validation",
+    "description": "OriginPHP Validation",
+    "type": "library",
+    "keywords": [
+        "originphp",
+        "validation",
+        "validate",
+        "credit card",
+        "iban",
+        "md5",
+        "luhn",
+        "mac address"
+    ],
+    "homepage": "https://www.originphp.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jamiel Sharief",
+            "email": "js@originphp.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Origin\\Validation\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Origin\\Test\\Validation\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0"
+    }
+}
