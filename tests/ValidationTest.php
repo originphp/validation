@@ -40,6 +40,13 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Validation::alpha('f00'));
     }
 
+    public function testAlphaNumeric()
+    {
+        $this->assertTrue(Validation::alphaNumeric('foo123'));
+        $this->assertFalse(Validation::alphaNumeric('foo-'));
+        $this->assertFalse(Validation::alphaNumeric(null));
+    }
+
     public function testBoolean()
     {
         $this->assertFalse(Validation::boolean(null));
@@ -133,6 +140,8 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
     public function testIban()
     {
         $this->assertTrue(Validation::iban('GB33BUKB20201555555555'));
+        $this->assertFalse(Validation::iban('FOO'));
+        $this->assertFalse(Validation::iban(null));
         $this->assertFalse(Validation::iban('GB33BUKB20201555555554'));
     }
 
@@ -296,7 +305,14 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::notIn('dropped', ['draft', 'new', 'published']));
     }
 
-    public function _testFQDN()
+    public function testLength()
+    {
+        $this->assertTrue(Validation::length('foo', 3));
+        $this->assertFalse(Validation::length('foo', 2));
+        $this->assertFalse(Validation::length(null, 2));
+    }
+
+    public function testFQDN()
     {
         // Check if it looks like FQDN
         $this->assertTrue(Validation::fqdn('google.com'));
