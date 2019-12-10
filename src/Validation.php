@@ -44,12 +44,13 @@ class Validation
     public static function after($value, string $afterDate = 'now') : bool
     {
         $result = false;
-        $value = strtotime($value);
-        $afterDate = strtotime($afterDate);
-        if ($value and $afterDate) {
-            $result = $value > $afterDate;
+        if (is_string($value)) {
+            $value = strtotime($value);
+            $afterDate = strtotime($afterDate);
+            if ($value and $afterDate) {
+                $result = $value > $afterDate;
+            }
         }
-
         return $result;
     }
 
@@ -96,12 +97,14 @@ class Validation
     public static function before($value, string $beforeDate = 'now') : bool
     {
         $result = false;
-        $value = strtotime($value);
-        $beforeDate = strtotime($beforeDate);
-        if ($value and $beforeDate) {
-            $result = $value < $beforeDate;
+        if (is_string($value)) {
+            $value = strtotime($value);
+            $beforeDate = strtotime($beforeDate);
+            if ($value and $beforeDate) {
+                $result = $value < $beforeDate;
+            }
         }
-
+       
         return $result;
     }
 
@@ -306,8 +309,8 @@ class Validation
     public static function fqdn($value, bool $checkDNS = false) : bool
     {
         $pattern = '/^((?=[a-z0-9-]{1,63}\.)[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/';
-
-        $result = is_string($value) and (bool) preg_match($pattern, $value);
+   
+        $result = (is_string($value) and (bool) preg_match($pattern, $value));
 
         if ($result and $checkDNS) {
             $result = (checkdnsrr($value, 'A') !== false);
@@ -434,6 +437,9 @@ class Validation
      */
     public static function iban($value) : bool
     {
+        if (!is_string($value)) {
+            return false;
+        }
         $value = str_replace([' ','-'], '', strtoupper($value));
         
         if (! preg_match('/^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$/', $value)) {
