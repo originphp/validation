@@ -22,7 +22,7 @@ For example
 $bool = Validation::ip('192.168.1.25');
 ```
 
-## Rules
+## Rules
 
 ### accepted
 
@@ -422,7 +422,7 @@ Validation::time('10:20:00','H:i:s');
 
 ### upload
 
-Validates an upload.
+Validates a file upload was successful.
 
 ```php
 Validation::upload($_FILES['upload1']);
