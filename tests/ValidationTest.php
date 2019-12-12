@@ -425,15 +425,6 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::notBlank('o '));
     }
 
-    public function testNotEmpty()
-    {
-        $this->assertTrue(Validation::notEmpty('foo'));
-        $this->assertFalse(Validation::notEmpty(''));
-        $this->assertFalse(Validation::notEmpty(null));
-        $this->assertTrue(Validation::notEmpty(0));
-        $this->assertTrue(Validation::notEmpty('0'));
-    }
-
     public function testNumeric()
     {
         $this->assertTrue(Validation::numeric(1));

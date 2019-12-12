@@ -669,17 +669,6 @@ class Validation
     }
 
     /**
-     * Validates a value is not empty (does not check whitespaces)
-     *
-     * @param string $value
-     * @return boolean
-     */
-    public static function notEmpty($value) : bool
-    {
-        return ! (empty($value) and (string) $value !== '0');
-    }
-
-    /**
      * Checks if a value is numeric (integer or float)
      *
      * @param int|float $value
