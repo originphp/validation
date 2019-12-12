@@ -89,7 +89,7 @@ Validates a credit card number
 > All regex rules written from scratch using current IIN ranges, so whilst they are accurate the rules are not mature yet.
 
 ```php
-Validation::creditCard($data);
+Validation::creditCard('2222 9909 0525 7051');
 ```
 
 ### date
@@ -243,13 +243,13 @@ Validation::integer(1);
 Validates a value is an IP Address, by default it validates as either IPV4 or IPV6.
 
 ```php
-Validation::ip($data);
+Validation::ip('192.168.1.1');
 ```
 
 To validate only IPV4 or IPV6
 
 ```php
-Validation::ip('192.168.1.1','ipv4');
+Validation::ip('192.168.1.10','ipv4');
 Validation::ip('2001:0db8:85a3:0000:0000:8a2e:0370:7334','ipv6');
 ```
 
@@ -299,7 +299,7 @@ Validation::lessThanOrEqual(5,5);
 Validates a string is in lowercase.
 
 ```php
-Validation::lowercase($data);
+Validation::lowercase('foo');
 ```
 
 ### luan
@@ -307,7 +307,7 @@ Validation::lowercase($data);
 Validates a number using the LUAN algoritm. 
 
 ```php
-Validation::luan($data);
+Validation::luan('7992739871');
 ```
 
 ### macAddress
