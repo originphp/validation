@@ -464,5 +464,5 @@ Validation::uuid('10458466-a809-4e7a-b784-68d78c25d092');
 You can also allow uppercase
 
 ```php
-Validation::uuid('86E6E3FC-4924-4B5F-8BCA-E4C07F7CDDF9');
+Validation::uuid('86E6E3FC-4924-4B5F-8BCA-E4C07F7CDDF9',true);
 ```
