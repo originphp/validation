@@ -438,6 +438,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertFalse(Validation::range('xxx', 5, 10));
         $this->assertTrue(Validation::range(5, 5, 10));
+        $this->assertTrue(Validation::range('5', 5, 10));
         $this->assertTrue(Validation::range(5.2, 5.1111, 10.999));
         $this->assertTrue(Validation::range(10, 5, 10));
         $this->assertFalse(Validation::range(1, 5, 10));

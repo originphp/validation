@@ -134,7 +134,7 @@ class Validation
      */
     public static function creditCard($value, string $type = 'any') : bool
     {
-        if (!is_string($value) and !is_integer($value)) {
+        if (! is_string($value) and ! is_integer($value)) {
             return false;
         }
 
@@ -278,7 +278,7 @@ class Validation
       */
     public static function extension($value, $extensions = []) : bool
     {
-        if (!is_string($value) and !is_array($value)) {
+        if (! is_string($value) and ! is_array($value)) {
             return false;
         }
         if (is_array($value)) {
@@ -426,19 +426,6 @@ class Validation
     }
 
     /**
-     * Validates a value is not in a list
-     *
-     * @param mixed $value
-     * @param array $list
-     * @param boolean $caseInSensitive
-     * @return boolean
-     */
-    public static function notIn($value, array $list, bool $caseInSensitive = false) : bool
-    {
-        return ! static::in($value, $list, $caseInSensitive);
-    }
-
-    /**
      * Validates an IBAN number. Does not check the country code is valid nor does it check
      * that length for that particular country. However it does check its the correct format
      * then it converts it and tests algorithm is corret.
@@ -559,7 +546,7 @@ class Validation
      */
     public static function luhn($value) : bool
     {
-        if ((! is_string($value) and !is_integer($value)) or strlen($value) < 2) {
+        if ((! is_string($value) and ! is_integer($value)) or strlen($value) < 2) {
             return false;
         }
         
@@ -669,6 +656,19 @@ class Validation
     }
 
     /**
+    * Validates a value is not in a list
+    *
+    * @param mixed $value
+    * @param array $list
+    * @param boolean $caseInSensitive
+    * @return boolean
+    */
+    public static function notIn($value, array $list, bool $caseInSensitive = false) : bool
+    {
+        return ! static::in($value, $list, $caseInSensitive);
+    }
+
+    /**
      * Checks if a value is numeric (integer or float)
      *
      * @param int|float $value
@@ -699,9 +699,9 @@ class Validation
      * @param int|float $max
      * @return boolean
      */
-    public static function range($value, $min = null, $max = null) : bool
+    public static function range($value, $min, $max) : bool
     {
-        if (! is_numeric($value) or ! isset($min,$max)) {
+        if (! is_numeric($value) or ! is_numeric($min) or ! is_numeric($max)) {
             return false;
         }
 
