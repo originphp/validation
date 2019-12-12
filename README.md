@@ -14,6 +14,14 @@ To install this package
 $ composer require originphp/validation
 ```
 
+## Usage
+
+For example
+
+```php
+$bool = Validation::ip('192.168.1.25');
+```
+
 ## Rules
 
 ### accepted
@@ -21,7 +29,7 @@ $ composer require originphp/validation
 Validates a value is accepted (checkbox is checked)
 
 ```php
-$result = Validation::accepted($_POST['accepted']);
+Validation::accepted($_POST['accepted']);
 ```
 
 ### after
@@ -29,8 +37,8 @@ $result = Validation::accepted($_POST['accepted']);
 Validates a date is after a certain date
 
 ```php
-$result = Validation::after('2019-01-01');
-$result = Validation::after('01/01/2019','d/m/Y');
+Validation::after('2019-01-01');
+Validation::after('01/01/2019','d/m/Y');
 ```
 
 ### alpha
@@ -38,7 +46,7 @@ $result = Validation::after('01/01/2019','d/m/Y');
 Validates a string only contains alphabetic characters from the default locale
 
 ```php
-$result = Validation::alpha('abc');
+Validation::alpha('abc');
 ```
 
 ### alphaNumeric
@@ -46,7 +54,7 @@ $result = Validation::alpha('abc');
 Validates a string only contains alphanumeric characters from the default locale
 
 ```php
-$result = Validation::alphaNumeric('abc1234');
+Validation::alphaNumeric('abc1234');
 ```
 
 ### array
@@ -54,7 +62,7 @@ $result = Validation::alphaNumeric('abc1234');
 Validates a value is an array
 
 ```php
-$result = Validation::array([]);
+Validation::array([]);
 ```
 
 ### before
@@ -62,8 +70,8 @@ $result = Validation::array([]);
 Validates a date is before a certain date
 
 ```php
-$result = Validation::before('2019-01-01');
-$result = Validation::before('01/01/2019','d/m/Y');
+Validation::before('2019-01-01');
+Validation::before('01/01/2019','d/m/Y');
 ```
 
 ### boolean
@@ -71,7 +79,7 @@ $result = Validation::before('01/01/2019','d/m/Y');
 Validates a value is a boolean type
 
 ```php
-$result = Validation::boolean(true);
+Validation::boolean(true);
 ```
 
 ### creditCard
@@ -81,7 +89,7 @@ Validates a credit card number
 > All regex rules written from scratch using current IIN ranges, so whilst they are accurate the rules are not mature yet.
 
 ```php
-$result = Validation::creditCard($data);
+Validation::creditCard($data);
 ```
 
 ### date
@@ -89,8 +97,8 @@ $result = Validation::creditCard($data);
 Validates a date using a format compatible with the PHP `DateTime` class.
 
 ```php
-$result = Validation::date('2019-01-01');
-$result = Validation::date('01/01/2019','d/m/Y');
+Validation::date('2019-01-01');
+Validation::date('01/01/2019','d/m/Y');
 ```
 
 ### dateFormat
@@ -100,7 +108,7 @@ Validates a date using a format compatible with the PHP `DateTime` class, this i
 The format, which is the second argument is required
 
 ```php
-$result = Validation::dateFormat('01/01/2019','d/m/Y');
+Validation::dateFormat('01/01/2019','d/m/Y');
 ```
 
 ### dateTime
@@ -108,8 +116,8 @@ $result = Validation::dateFormat('01/01/2019','d/m/Y');
 Validates a datetime using a format compatible with the PHP DateTime class.
 
 ```php
-$result = Validation::dateTime('2019-01-01 17:23:00');
-$result = Validation::dateTime('01/01/2019 17:23','d/m/Y H:i');
+Validation::dateTime('2019-01-01 17:23:00');
+Validation::dateTime('01/01/2019 17:23','d/m/Y H:i');
 ```
 
 ### decimal
@@ -117,8 +125,8 @@ $result = Validation::dateTime('01/01/2019 17:23','d/m/Y H:i');
 Validates a value is a float. Alias for float
 
 ```php
-$result = Validation::decimal(0.007);
-$result = Validation::decimal('0.007');
+Validation::decimal(0.007);
+Validation::decimal('0.007');
 ```
 
 ### email
@@ -126,13 +134,13 @@ $result = Validation::decimal('0.007');
 Validation for an email address
 
 ```php
-$result = Validation::email('foo@example.com');
+Validation::email('foo@example.com');
 ```
 
 You can also check that the email address has valid MX records using the `getmxrr` function.
 
 ```php
-$result = Validation::email('foo@example.com',true);
+Validation::email('foo@example.com',true);
 ```
 
 ### equalTo
@@ -140,8 +148,8 @@ $result = Validation::email('foo@example.com',true);
 Validates a value is equal to another value, only values are compared.
 
 ```php
-$result = Validation::equalTo(5,5);
-$result = Validation::equalTo('5',5);
+Validation::equalTo(5,5);
+Validation::equalTo('5',5);
 ```
 
 ### extension
@@ -149,13 +157,13 @@ $result = Validation::equalTo('5',5);
 Validates a value has an extension. If an array is supplied it will look
 
 ```php
-$result = Validation::extension('filename.jpg',['jpg','gif']);
+Validation::extension('filename.jpg',['jpg','gif']);
 ```
 
 You can also check a file that has been uploaded
 
 ```php
-$result = Validation::extension($_FILES['file1'],['jpg','gif']);
+Validation::extension($_FILES['file1'],['jpg','gif']);
 ```
 
 ### float
@@ -163,8 +171,8 @@ $result = Validation::extension($_FILES['file1'],['jpg','gif']);
 Validates a value is a float.
 
 ```php
-$result = Validation::float(0.007);
-$result = Validation::float('0.007');
+Validation::float(0.007);
+Validation::float('0.007');
 ```
 
 ### fqdn
@@ -172,13 +180,13 @@ $result = Validation::float('0.007');
 Validates a string is Fully Qualified Domain Name (FQDN). 
 
 ```php
-$result = Validation::fqdn('www.originphp.com');
+Validation::fqdn('www.originphp.com');
 ```
 
 You can also check the DNS records using `checkdnsrr` to ensure that is really valid and not just looks like its valid.
 
 ```php
-$result = Validation::fqdn('www.originphp.com',true);
+Validation::fqdn('www.originphp.com',true);
 ```
 
 ### greaterThan
@@ -186,7 +194,7 @@ $result = Validation::fqdn('www.originphp.com',true);
 Validates a value is greater than
 
 ```php
-$result = Validation::greaterThan(4,1);
+Validation::greaterThan(4,1);
 ```
 
 ### greaterThanOrEqual
@@ -194,7 +202,7 @@ $result = Validation::greaterThan(4,1);
 Validates a value is greater than or equals a value.
 
 ```php
-$result = Validation::greaterThanOrEqual(4,1);
+Validation::greaterThanOrEqual(4,1);
 ```
 
 ### hexColor
@@ -202,7 +210,7 @@ $result = Validation::greaterThanOrEqual(4,1);
 Validates a value is a hex color
 
 ```php
-$result = Validation::hexColor('#fffff');
+Validation::hexColor('#fffff');
 ```
 
 ### iban
@@ -210,7 +218,7 @@ $result = Validation::hexColor('#fffff');
 Validates a value is an IBAN number
 
 ```php
-$result = Validation::iban('DE89 3704 0044 0532 0130 00');
+Validation::iban('DE89 3704 0044 0532 0130 00');
 ```
 
 ### in
@@ -218,7 +226,7 @@ $result = Validation::iban('DE89 3704 0044 0532 0130 00');
 Validates a value is in a list
 
 ```php
-$result = Validation::in('foo',['foo','bar']);
+Validation::in('foo',['foo','bar']);
 ```
 
 ### integer
@@ -226,8 +234,8 @@ $result = Validation::in('foo',['foo','bar']);
 Validates a value is an integer
 
 ```php
-$result = Validation::integer('1');
-$result = Validation::integer(1);
+Validation::integer('1');
+Validation::integer(1);
 ```
 
 ### ip
@@ -235,14 +243,14 @@ $result = Validation::integer(1);
 Validates a value is an IP Address, by default it validates as either IPV4 or IPV6.
 
 ```php
-$result = Validation::ip($data);
+Validation::ip($data);
 ```
 
 To validate only IPV4 or IPV6
 
 ```php
-$result = Validation::ip('192.168.1.1','ipv4');
-$result = Validation::ip('2001:0db8:85a3:0000:0000:8a2e:0370:7334','ipv6');
+Validation::ip('192.168.1.1','ipv4');
+Validation::ip('2001:0db8:85a3:0000:0000:8a2e:0370:7334','ipv6');
 ```
 
 ### ipRange
@@ -250,7 +258,7 @@ $result = Validation::ip('2001:0db8:85a3:0000:0000:8a2e:0370:7334','ipv6');
 Validates an IP address is in a range.
 
 ```php
-$result = Validation::ipRange('192.168.1.5','192.168.168.1','192.168.1.10');
+Validation::ipRange('192.168.1.5','192.168.168.1','192.168.1.10');
 ```
 
 ### json
@@ -259,7 +267,7 @@ Validates a value is a JSON string.
 
 ```php
 $data = json_encode('foo');
-$result = Validation::json($data);
+Validation::json($data);
 ```
 
 ### length
@@ -267,7 +275,7 @@ $result = Validation::json($data);
 Validates a string has a certain length.
 
 ```php
-$result = Validation::length('foo', 3);
+Validation::length('foo', 3);
 ```
 
 ### lessThan
@@ -275,7 +283,7 @@ $result = Validation::length('foo', 3);
 Validates a value is less than another a value.
 
 ```php
-$result = Validation::lessThan(3,5);
+Validation::lessThan(3,5);
 ```
 
 ### lessThanOrEqual
@@ -283,7 +291,7 @@ $result = Validation::lessThan(3,5);
 Validates a value is less than or equal to another a value.
 
 ```php
-$result = Validation::lessThanOrEqual(5,5);
+Validation::lessThanOrEqual(5,5);
 ```
 
 ### lowercase
@@ -291,7 +299,7 @@ $result = Validation::lessThanOrEqual(5,5);
 Validates a string is in lowercase.
 
 ```php
-$result = Validation::lowercase($data);
+Validation::lowercase($data);
 ```
 
 ### luan
@@ -299,7 +307,7 @@ $result = Validation::lowercase($data);
 Validates a number using the LUAN algoritm. 
 
 ```php
-$result = Validation::luan($data);
+Validation::luan($data);
 ```
 
 ### macAddress
@@ -307,7 +315,7 @@ $result = Validation::luan($data);
 Validates a string is a valid mac address.
 
 ```php
-$result = Validation::macAddress('00:0b:95:9d:00:17');
+Validation::macAddress('00:0b:95:9d:00:17');
 ```
 
 ### maxLength
@@ -315,7 +323,7 @@ $result = Validation::macAddress('00:0b:95:9d:00:17');
 Validates a string has a maximum length.
 
 ```php
-$result = Validation::maxLength('foo',3);
+Validation::maxLength('foo',3);
 ```
 
 ### md5
@@ -323,13 +331,13 @@ $result = Validation::maxLength('foo',3);
 Validates a string is a MD5 hash.
 
 ```php
-$result = Validation::md5('b1816172fd2ba98f3af520ef572e3a47');
+Validation::md5('b1816172fd2ba98f3af520ef572e3a47');
 ```
 
 You can also allow it to be case insensitive
 
 ```php
-$result = Validation::md5('B1816172FD2BA98F3AF520EF572E3A47',true);
+Validation::md5('B1816172FD2BA98F3AF520EF572E3A47',true);
 ```
 
 ### mimeType
@@ -337,9 +345,9 @@ $result = Validation::md5('B1816172FD2BA98F3AF520EF572E3A47',true);
 Validates a file has a particular mime type.
 
 ```php
-$result = Validation::mimeType('phpunit.xml','text/xml');
-$result = Validation::mimeType('import.csv',['text/csv''text/plain']);
-$result = Validation::mimeType($_FILES['upload1'],'application/pdf');
+Validation::mimeType('phpunit.xml','text/xml');
+Validation::mimeType('import.csv',['text/csv''text/plain']);
+Validation::mimeType($_FILES['upload1'],'application/pdf');
 ```
 
 ### minLength
@@ -347,7 +355,7 @@ $result = Validation::mimeType($_FILES['upload1'],'application/pdf');
 Validates a string has a minimum length.
 
 ```php
-$result = Validation::minLength('foo',3);
+Validation::minLength('foo',3);
 ```
 
 ### notBlank
@@ -355,7 +363,7 @@ $result = Validation::minLength('foo',3);
 Validates a value is not empty and has anything other than whitespaces.
 
 ```php
-$result = Validation::notBlank('foo');
+Validation::notBlank('foo');
 ```
 
 ### notIn
@@ -363,7 +371,7 @@ $result = Validation::notBlank('foo');
 Validates a value is not in an array of values.
 
 ```php
-$result = Validation::notIn('fooz',['foo','bar']);
+Validation::notIn('fooz',['foo','bar']);
 ```
 
 ### numeric
@@ -371,10 +379,10 @@ $result = Validation::notIn('fooz',['foo','bar']);
 Validates a value is an integer or a float.
 
 ```php
-$result = Validation::numeric('1');
-$result = Validation::numeric(1);
-$result = Validation::numeric(9.99);
-$result = Validation::numeric('9.99');
+Validation::numeric('1');
+Validation::numeric(1);
+Validation::numeric(9.99);
+Validation::numeric('9.99');
 ```
 
 ### present
@@ -383,7 +391,7 @@ Validates an array has a key.
 
 ```php
 $data = ['foo'=>'bar'];
-$result = Validation::present($data,'foo');
+Validation::present($data,'foo');
 ```
 
 ### range
@@ -391,8 +399,8 @@ $result = Validation::present($data,'foo');
 Validates a number or float is within a range.
 
 ```php
-$result = Validation::range(5,1,10);
-$result = Validation::range('5',1,10);
+Validation::range(5,1,10);
+Validation::range('5',1,10);
 ```
 
 ### regex
@@ -400,7 +408,7 @@ $result = Validation::range('5',1,10);
 Validates a string using a REGEX pattern.
 
 ```php
-$result = Validation::regex('foo','/foo/');
+Validation::regex('foo','/foo/');
 ```
 
 ### time
@@ -408,8 +416,8 @@ $result = Validation::regex('foo','/foo/');
 Validates a string is a time.
 
 ```php
-$result = Validation::time('10:20');
-$result = Validation::time('10:20:00','H:i:s');
+Validation::time('10:20');
+Validation::time('10:20:00','H:i:s');
 ```
 
 ### upload
@@ -417,15 +425,15 @@ $result = Validation::time('10:20:00','H:i:s');
 Validates an upload.
 
 ```php
-$result = Validation::upload($_FILES['upload1']);
-$result = Validation::upload($_FILES['upload1']['error']);
+Validation::upload($_FILES['upload1']);
+Validation::upload($_FILES['upload1']['error']);
 ```
 
 You can also allow optional file upload, meaning if no file is upload then it will return true if there was no
 error uploading it.
 
 ```php
-$result = Validation::upload($_FILES['upload1'],true);
+Validation::upload($_FILES['upload1'],true);
 ```
 
 ### uppercase
@@ -433,7 +441,7 @@ $result = Validation::upload($_FILES['upload1'],true);
 Validates a string is uppercase.
 
 ```php
-$result = Validation::uppercase('FOO');
+Validation::uppercase('FOO');
 ```
 
 ### url
@@ -441,8 +449,8 @@ $result = Validation::uppercase('FOO');
 Validates a string is an URL.
 
 ```php
-$result = Validation::url('www.example.com/q=foo');
-$result = Validation::url('http://www.google.com', true);
+Validation::url('www.example.com/q=foo');
+Validation::url('http://www.google.com', true);
 ```
 
 ### uuid
@@ -450,11 +458,11 @@ $result = Validation::url('http://www.google.com', true);
 Validates a string is a UUID
 
 ```php
-$result = Validation::uuid('10458466-a809-4e7a-b784-68d78c25d092');
+Validation::uuid('10458466-a809-4e7a-b784-68d78c25d092');
 ```
 
 You can also allow uppercase
 
 ```php
-$result = Validation::uuid('86E6E3FC-4924-4B5F-8BCA-E4C07F7CDDF9');
+Validation::uuid('86E6E3FC-4924-4B5F-8BCA-E4C07F7CDDF9');
 ```
