@@ -1,4 +1,4 @@
-# Validation (alpha)
+# Validation (beta)
 
 ![license](https://img.shields.io/badge/license-MIT-brightGreen.svg)
 [![build](https://travis-ci.org/originphp/validation.svg?branch=master)](https://travis-ci.org/originphp/validation)
@@ -149,13 +149,13 @@ $result = Validation::equalTo('5',5);
 Validates a value has an extension. If an array is supplied it will look
 
 ```php
-$result = Validation::name('filename.jpg',['jpg','gif']);
+$result = Validation::extension('filename.jpg',['jpg','gif']);
 ```
 
 You can also check a file that has been uploaded
 
 ```php
-$result = Validation::name($_FILES['file1'],['jpg','gif']);
+$result = Validation::extension($_FILES['file1'],['jpg','gif']);
 ```
 
 ### float
@@ -337,9 +337,9 @@ $result = Validation::md5('B1816172FD2BA98F3AF520EF572E3A47',true);
 Validates a file has a particular mime type.
 
 ```php
-$result = Validation::name('phpunit.xml','text/xml');
-$result = Validation::name('import.csv',['text/csv''text/plain']);
-$result = Validation::name($_FILES['upload1'],'application/pdf');
+$result = Validation::mimeType('phpunit.xml','text/xml');
+$result = Validation::mimeType('import.csv',['text/csv''text/plain']);
+$result = Validation::mimeType($_FILES['upload1'],'application/pdf');
 ```
 
 ### minLength
@@ -400,7 +400,7 @@ $result = Validation::range('5',1,10);
 Validates a string using a REGEX pattern.
 
 ```php
-$result = Validation::name('foo','/foo/');
+$result = Validation::regex('foo','/foo/');
 ```
 
 ### time
