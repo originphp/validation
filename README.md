@@ -95,7 +95,7 @@ $result = Validation::date('01/01/2019','d/m/Y');
 
 ### dateFormat
 
-Validates a date using a format compatible with the PHP `DateTime` class, this is used by the `Validation::date`, `Validation::time`, and `Validation::dateTime`.  
+Validates a date using a format compatible with the PHP `DateTime` class, this is used by `Validation::date`, `Validation::time`, and `Validation::dateTime`.  
 
 The format, which is the second argument is required
 
@@ -344,79 +344,117 @@ $result = Validation::name($_FILES['upload1'],'application/pdf');
 
 ### minLength
 
+Validates a string has a minimum length.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::minLength('foo',3);
 ```
 
 ### notBlank
 
-```php
-$result = Validation::name($data);
-```
-
-### notEmpty
+Validates a value is not empty and has anything other than whitespaces.
 
 ```php
-$result = Validation::name($data);
+$result = Validation::notBlank('foo');
 ```
 
 ### notIn
 
+Validates a value is not in an array of values.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::notIn('fooz',['foo','bar']);
 ```
 
 ### numeric
 
+Validates a value is an integer or a float.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::numeric('1');
+$result = Validation::numeric(1);
+$result = Validation::numeric(9.99);
+$result = Validation::numeric('9.99');
 ```
 
 ### present
 
+Validates an array has a key.
+
 ```php
-$result = Validation::name($data);
+$data = ['foo'=>'bar'];
+$result = Validation::present($data,'foo');
 ```
 
 ### range
 
+Validates a number or float is within a range.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::range(5,1,10);
+$result = Validation::range('5',1,10);
 ```
 
 ### regex
 
+Validates a string using a REGEX pattern.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::name('foo','/foo/');
 ```
 
 ### time
 
+Validates a string is a time.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::time('10:20');
+$result = Validation::time('10:20:00','H:i:s');
 ```
 
 ### upload
 
+Validates an upload.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::upload($_FILES['upload1']);
+$result = Validation::upload($_FILES['upload1']['error']);
+```
+
+You can also allow optional file upload, meaning if no file is upload then it will return true if there was no
+error uploading it.
+
+```php
+$result = Validation::upload($_FILES['upload1'],true);
 ```
 
 ### uppercase
 
+Validates a string is uppercase.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::uppercase('FOO');
 ```
 
 ### url
 
+Validates a string is an URL.
+
 ```php
-$result = Validation::name($data);
+$result = Validation::url('www.example.com/q=foo');
+$result = Validation::url('http://www.google.com', true);
 ```
 
 ### uuid
 
+Validates a string is a UUID
+
 ```php
-$result = Validation::name($data);
+$result = Validation::uuid('10458466-a809-4e7a-b784-68d78c25d092');
 ```
 
+You can also allow uppercase
+
+```php
+$result = Validation::uuid('86E6E3FC-4924-4B5F-8BCA-E4C07F7CDDF9');
+```
