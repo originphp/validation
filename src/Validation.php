@@ -724,10 +724,10 @@ class Validation
     * Validates a date using a format compatible with the PHP DateTime class.
     *
     * @param string $value
-    * @param string $format Y-m-d
+    * @param string $format H:i
     * @return bool
     */
-    public static function time($value, string $format = 'H:i:s') : bool
+    public static function time($value, string $format = 'H:i') : bool
     {
         return static::dateFormat($value, $format);
     }

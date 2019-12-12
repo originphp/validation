@@ -387,7 +387,7 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(Validation::mimeType($file, ['text/xml']));
     }
 
-    public function testFileUpload()
+    public function testUpload()
     {
         $post = ['tmp_name' => null,'error' => UPLOAD_ERR_NO_FILE];
         $this->assertFalse(Validation::upload(UPLOAD_ERR_NO_FILE));
@@ -447,7 +447,8 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
 
     public function testTime()
     {
-        $this->assertTrue(Validation::time('10:15', 'H:i'));
+        $this->assertTrue(Validation::time('10:15'));
+        $this->assertTrue(Validation::time('10:15:00', 'H:i:s'));
         $this->assertFalse(Validation::time('10.15', 'H:i'));
     }
 
