@@ -89,7 +89,7 @@ class Validation
     }
 
     /**
-     * Validates a date is after a certain date
+     * Validates a date is before a certain date
      *
      * @param string $value strtotime compatabile date
      * @param string $afterDate strtotime compatabile date
@@ -186,7 +186,7 @@ class Validation
     }
 
     /**
-    * Validates a date using a format compatible with the php date function.
+    * Validates a date using a format compatible with the PHP DateTime class.
     *
     * @param string $value
     * @param string $format Y-m-d
@@ -215,7 +215,7 @@ class Validation
     }
 
     /**
-    * Validates a datetime using a format compatible with the php date function.
+    * Validates a datetime using a format compatible with the PHP DateTime class.
     *
     * @param string $value
     * @param string $format Y-m-d H:i:s
@@ -270,7 +270,7 @@ class Validation
     }
 
     /**
-      * Validates a value has an extension. If an array is supplied it will look
+      * Validates a value has an extension. If an array is supplied it will look for the name key.
       *
       * @param string|array $value
       * @param string|array $extensions ['gif','jpg']
@@ -349,7 +349,7 @@ class Validation
      * @param int|float $max
      * @return boolean
      */
-    public static function greaterThanOrEquals($value, $max) : bool
+    public static function greaterThanOrEqual($value, $max) : bool
     {
         return $value >= $max;
     }
@@ -420,7 +420,7 @@ class Validation
      * @param int|float $max
      * @return boolean
      */
-    public static function lessThanOrEquals($value, $min) : bool
+    public static function lessThanOrEqual($value, $min) : bool
     {
         return $value <= $min;
     }
@@ -732,7 +732,7 @@ class Validation
     }
 
     /**
-    * Validates a date using a format compatible with the php date function.
+    * Validates a date using a format compatible with the PHP DateTime class.
     *
     * @param string $value
     * @param string $format Y-m-d

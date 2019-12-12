@@ -295,16 +295,16 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
 
     public function testGreaterThanEquals()
     {
-        $this->assertTrue(Validation::greaterThanOrEquals(2, 1));
-        $this->assertTrue(Validation::greaterThanOrEquals(2, 2));
-        $this->assertFalse(Validation::greaterThanOrEquals(2, 3));
+        $this->assertTrue(Validation::greaterThanOrEqual(2, 1));
+        $this->assertTrue(Validation::greaterThanOrEqual(2, 2));
+        $this->assertFalse(Validation::greaterThanOrEqual(2, 3));
     }
 
     public function testLessThanEquals()
     {
-        $this->assertTrue(Validation::lessThanOrEquals(1, 2));
-        $this->assertTrue(Validation::lessThanOrEquals(2, 2));
-        $this->assertFalse(Validation::lessThanOrEquals(3, 2));
+        $this->assertTrue(Validation::lessThanOrEqual(1, 2));
+        $this->assertTrue(Validation::lessThanOrEqual(2, 2));
+        $this->assertFalse(Validation::lessThanOrEqual(3, 2));
     }
 
     public function testHexColor()
