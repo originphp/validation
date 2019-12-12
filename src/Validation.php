@@ -43,15 +43,17 @@ class Validation
      */
     public static function after($value, string $afterDate = 'now') : bool
     {
-        $result = false;
-        if (is_string($value)) {
-            $value = strtotime($value);
-            $afterDate = strtotime($afterDate);
-            if ($value and $afterDate) {
-                $result = $value > $afterDate;
-            }
+        if (! is_string($value)) {
+            return false;
         }
-
+       
+        $result = false;
+        $value = strtotime($value);
+        $afterDate = strtotime($afterDate);
+        if ($value and $afterDate) {
+            $result = $value > $afterDate;
+        }
+        
         return $result;
     }
 
@@ -97,15 +99,17 @@ class Validation
      */
     public static function before($value, string $beforeDate = 'now') : bool
     {
-        $result = false;
-        if (is_string($value)) {
-            $value = strtotime($value);
-            $beforeDate = strtotime($beforeDate);
-            if ($value and $beforeDate) {
-                $result = $value < $beforeDate;
-            }
+        if (! is_string($value)) {
+            return false;
         }
        
+        $result = false;
+        $value = strtotime($value);
+        $beforeDate = strtotime($beforeDate);
+        if ($value and $beforeDate) {
+            $result = $value < $beforeDate;
+        }
+
         return $result;
     }
 
