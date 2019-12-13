@@ -34,11 +34,10 @@ Validation::accepted($_POST['accepted']);
 
 ### after
 
-Validates a date is after a certain date
+Validates a date is after a certain date, dates are passed to the `strtotime` function.
 
 ```php
-Validation::after('2019-01-01');
-Validation::after('01/01/2019','d/m/Y');
+Validation::after('2019-01-01','now');
 ```
 
 ### alpha
@@ -67,11 +66,10 @@ Validation::array([]);
 
 ### before
 
-Validates a date is before a certain date
+Validates a date is before a certain date, dates are passed to the `strtotime` function.
 
 ```php
-Validation::before('2019-01-01');
-Validation::before('01/01/2019','d/m/Y');
+Validation::before('2019-01-01','today');
 ```
 
 ### boolean
@@ -160,7 +158,7 @@ Validates a value has an extension. If an array is supplied it will look
 Validation::extension('filename.jpg',['jpg','gif']);
 ```
 
-You can also check a file that has been uploaded
+You can also check a file that has been uploaded with the correct extension.
 
 ```php
 Validation::extension($_FILES['file1'],['jpg','gif']);
