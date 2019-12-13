@@ -1,4 +1,4 @@
-# Validation (beta)
+# Validation
 
 ![license](https://img.shields.io/badge/license-MIT-brightGreen.svg)
 [![build](https://travis-ci.org/originphp/validation.svg?branch=master)](https://travis-ci.org/originphp/validation)
@@ -210,7 +210,7 @@ Validation::greaterThanOrEqual(4,1);
 Validates a value is a hex color
 
 ```php
-Validation::hexColor('#fffff');
+Validation::hexColor('#f5f5f5');
 ```
 
 ### iban
