@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OriginPHP Framework
  * Copyright 2018 - 2019 Jamiel Sharief.
@@ -11,7 +12,9 @@
  * @link        https://www.originphp.com
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Origin\Validation;
 
 use DateTime;
@@ -29,7 +32,7 @@ class Validation
      * @param array $acceptables
      * @return boolean
      */
-    public static function accepted($value, array $acceptables = [true,1,'1']) : bool
+    public static function accepted($value, array $acceptables = [true, 1, '1']): bool
     {
         return in_array($value, $acceptables, true);
     }
@@ -41,19 +44,19 @@ class Validation
      * @param string $afterDate strtotime compatabile date
      * @return boolean
      */
-    public static function after($value, string $afterDate = 'now') : bool
+    public static function after($value, string $afterDate = 'now'): bool
     {
         if (! is_string($value)) {
             return false;
         }
-       
+
         $result = false;
         $value = strtotime($value);
         $afterDate = strtotime($afterDate);
         if ($value and $afterDate) {
             $result = $value > $afterDate;
         }
-        
+
         return $result;
     }
 
@@ -63,18 +66,18 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function alpha($value) : bool
+    public static function alpha($value): bool
     {
         return ctype_alpha($value);
     }
 
     /**
-    * Validates a string only contains alphanumeric characters from the default locale
-    *
-    * @param string $value
-    * @return boolean
-    */
-    public static function alphaNumeric($value) : bool
+     * Validates a string only contains alphanumeric characters from the default locale
+     *
+     * @param string $value
+     * @return boolean
+     */
+    public static function alphaNumeric($value): bool
     {
         return ctype_alnum($value);
     }
@@ -85,7 +88,7 @@ class Validation
      * @param array $value
      * @return boolean
      */
-    public static function array($value) : bool
+    public static function array($value): bool
     {
         return is_array($value);
     }
@@ -97,12 +100,12 @@ class Validation
      * @param string $afterDate strtotime compatabile date
      * @return boolean
      */
-    public static function before($value, string $beforeDate = 'now') : bool
+    public static function before($value, string $beforeDate = 'now'): bool
     {
         if (! is_string($value)) {
             return false;
         }
-       
+
         $result = false;
         $value = strtotime($value);
         $beforeDate = strtotime($beforeDate);
@@ -120,7 +123,7 @@ class Validation
      * @param array values array of boolean values
      * @return boolean
      */
-    public static function boolean($value, array $values = [true,false,0,1,'0','1']) : bool
+    public static function boolean($value, array $values = [true, false, 0, 1, '0', '1']): bool
     {
         return ($value !== null and in_array($value, $values));
     }
@@ -136,13 +139,13 @@ class Validation
      * @param string $type any, amex, diners, discover, jcb, maestro, mastercard, visa
      * @return boolean
      */
-    public static function creditCard($value, string $type = 'any') : bool
+    public static function creditCard($value, string $type = 'any'): bool
     {
         if (! is_string($value) and ! is_integer($value)) {
             return false;
         }
 
-        $value = str_replace([' ','-'], '', $value);
+        $value = str_replace([' ', '-'], '', $value);
 
         // 06.12.2019 - Decided to write the regex rules from scratch since
         // the public domain ones seem to be outdated.
@@ -159,7 +162,7 @@ class Validation
             // IIN ranges 	6011, 622126 - 622925, 624000 - 626999, 628200 - 628899, 64, 65 - length 16-19
             // @todo 622126 - 622925 breaks into 622200-622800,622900-622925, 622126-622199
             'discover' => '/^6011\d{12,15}$|^(64|65)\d{14,17}$|^622[1-9]\d{12,15}$|^62[4-6][0-9]\d{12,15}$|^628[2-8]\d{12,15}$/', // 16-19
-          
+
             // IIN range 3528–3589 length 16-19
             'jcb' => '/^35[3-8]\d{13,16}$|^352[8-9]\d{12,15}$/',
             // IIN range 50, 56–69 length 12 - 19 (uk is also covered)
@@ -190,13 +193,13 @@ class Validation
     }
 
     /**
-    * Validates a date using a format compatible with the PHP DateTime class.
-    *
-    * @param string $value
-    * @param string $format Y-m-d
-    * @return bool
-    */
-    public static function date($value, string $format = 'Y-m-d') : bool
+     * Validates a date using a format compatible with the PHP DateTime class.
+     *
+     * @param string $value
+     * @param string $format Y-m-d
+     * @return bool
+     */
+    public static function date($value, string $format = 'Y-m-d'): bool
     {
         return static::dateFormat($value, $format);
     }
@@ -208,7 +211,7 @@ class Validation
      * @param string $format Y-m-d H:i:s,Y-m-d,H:i:s
      * @return boolean
      */
-    public static function dateFormat($value, string $format) : bool
+    public static function dateFormat($value, string $format): bool
     {
         if (! is_string($value)) {
             return false;
@@ -219,13 +222,13 @@ class Validation
     }
 
     /**
-    * Validates a datetime using a format compatible with the PHP DateTime class.
-    *
-    * @param string $value
-    * @param string $format Y-m-d H:i:s
-    * @return bool
-    */
-    public static function datetime($value, string $format = 'Y-m-d H:i:s') : bool
+     * Validates a datetime using a format compatible with the PHP DateTime class.
+     *
+     * @param string $value
+     * @param string $format Y-m-d H:i:s
+     * @return bool
+     */
+    public static function datetime($value, string $format = 'Y-m-d H:i:s'): bool
     {
         return static::dateFormat($value, $format);
     }
@@ -236,7 +239,7 @@ class Validation
      * @param float $value
      * @return boolean
      */
-    public static function decimal($value) : bool
+    public static function decimal($value): bool
     {
         return static::float($value);
     }
@@ -248,7 +251,7 @@ class Validation
      * @param boolean $checkDNS Wether to check if the domain part has MX records
      * @return boolean
      */
-    public static function email($value, bool $checkDNS = false) : bool
+    public static function email($value, bool $checkDNS = false): bool
     {
         $result = (filter_var($value, FILTER_VALIDATE_EMAIL) !== false);
 
@@ -268,19 +271,19 @@ class Validation
      * @param mixed $comparedTo
      * @return boolean
      */
-    public static function equalTo($value, $comparedTo) : bool
+    public static function equalTo($value, $comparedTo): bool
     {
         return ($value == $comparedTo);
     }
 
     /**
-      * Validates a value has an extension. If an array is supplied it will look for the name key.
-      *
-      * @param string|array $value
-      * @param string|array $extensions ['gif','jpg']
-      * @return boolean
-      */
-    public static function extension($value, $extensions = []) : bool
+     * Validates a value has an extension. If an array is supplied it will look for the name key.
+     *
+     * @param string|array $value
+     * @param string|array $extensions ['gif','jpg']
+     * @return boolean
+     */
+    public static function extension($value, $extensions = []): bool
     {
         if (! is_string($value) and ! is_array($value)) {
             return false;
@@ -302,7 +305,7 @@ class Validation
      * @param float $value
      * @return bool
      */
-    public static function float($value) : bool
+    public static function float($value): bool
     {
         if (is_string($value)) {
             return (bool) filter_var($value, FILTER_VALIDATE_FLOAT) and filter_var($value, FILTER_VALIDATE_INT) === false;
@@ -321,10 +324,10 @@ class Validation
      * @param boolean $checkDNS
      * @return boolean
      */
-    public static function fqdn($value, bool $checkDNS = false) : bool
+    public static function fqdn($value, bool $checkDNS = false): bool
     {
         $pattern = '/^((?=[a-z0-9-]{1,63}\.)[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/';
-   
+
         $result = (is_string($value) and (bool) preg_match($pattern, $value));
 
         if ($result and $checkDNS) {
@@ -341,7 +344,7 @@ class Validation
      * @param int|float $max
      * @return boolean
      */
-    public static function greaterThan($value, $max) : bool
+    public static function greaterThan($value, $max): bool
     {
         return $value > $max;
     }
@@ -353,7 +356,7 @@ class Validation
      * @param int|float $max
      * @return boolean
      */
-    public static function greaterThanOrEqual($value, $max) : bool
+    public static function greaterThanOrEqual($value, $max): bool
     {
         return $value >= $max;
     }
@@ -364,7 +367,7 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function hexColor($value) : bool
+    public static function hexColor($value): bool
     {
         $pattern = '/^#[0-9a-f]{6}$/i';
 
@@ -379,13 +382,13 @@ class Validation
      * @param boolean $caseInSensitive
      * @return boolean
      */
-    public static function in($value, array $list, bool $caseInSensitive = false) : bool
+    public static function in($value, array $list, bool $caseInSensitive = false): bool
     {
         if ($caseInSensitive) {
             $list = array_map('mb_strtolower', $list);
             $value = mb_strtolower($value);
         }
-    
+
         return in_array($value, $list);
     }
 
@@ -395,7 +398,7 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function json($value) : bool
+    public static function json($value): bool
     {
         if (! is_string($value) or empty($value)) {
             return false;
@@ -412,7 +415,7 @@ class Validation
      * @param int|float $max
      * @return boolean
      */
-    public static function lessThan($value, $min) : bool
+    public static function lessThan($value, $min): bool
     {
         return $value < $min;
     }
@@ -424,7 +427,7 @@ class Validation
      * @param int|float $max
      * @return boolean
      */
-    public static function lessThanOrEqual($value, $min) : bool
+    public static function lessThanOrEqual($value, $min): bool
     {
         return $value <= $min;
     }
@@ -437,13 +440,13 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function iban($value) : bool
+    public static function iban($value): bool
     {
         if (! is_string($value)) {
             return false;
         }
-        $value = str_replace([' ','-'], '', strtoupper($value));
-        
+        $value = str_replace([' ', '-'], '', strtoupper($value));
+
         if (! preg_match('/^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}$/', $value)) {
             return false;
         }
@@ -467,7 +470,7 @@ class Validation
             $valuesum = ($valuesum * 10) + intval(substr($numericString, $i, 1));
             $valuesum %= 97;
         }
-     
+
         return ((98 - $valuesum) === $valueDigits);
     }
 
@@ -477,7 +480,7 @@ class Validation
      * @param int $value
      * @return boolean
      */
-    public static function integer($value) : bool
+    public static function integer($value): bool
     {
         return is_int($value) or ctype_digit($value);
     }
@@ -489,9 +492,9 @@ class Validation
      * @param string $type both,ipv4,ipv6
      * @return boolean
      */
-    public static function ip($value, string $type = 'both') : bool
+    public static function ip($value, string $type = 'both'): bool
     {
-        $map = ['both' => 0,'ipv4' => FILTER_FLAG_IPV4,'ipv6' => FILTER_FLAG_IPV6];
+        $map = ['both' => 0, 'ipv4' => FILTER_FLAG_IPV4, 'ipv6' => FILTER_FLAG_IPV6];
         $options = ['flags' => $map[$type]];
 
         return in_array($type, $map) and (bool) filter_var($value, FILTER_VALIDATE_IP, $options);
@@ -505,7 +508,7 @@ class Validation
      * @param string $end
      * @return boolean
      */
-    public static function ipRange($value, string $start, string $end) : bool
+    public static function ipRange($value, string $start, string $end): bool
     {
         if (static::ip($value) and static::ip($start) and static::ip($end)) {
             $ip = ip2long($value);
@@ -517,13 +520,13 @@ class Validation
     }
 
     /**
-    * Validates a value has a certain length
-    *
-    * @param string $value
-    * @param int $max
-    * @return boolean
-    */
-    public static function length($value, int $length) : bool
+     * Validates a value has a certain length
+     *
+     * @param string $value
+     * @param int $max
+     * @return boolean
+     */
+    public static function length($value, int $length): bool
     {
         return (is_string($value) and mb_strlen($value) === $length);
     }
@@ -534,7 +537,7 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function lowercase($value) : bool
+    public static function lowercase($value): bool
     {
         return (is_string($value) and ! empty($value) and strtolower($value) === $value);
     }
@@ -548,12 +551,12 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function luhn($value) : bool
+    public static function luhn($value): bool
     {
         if ((! is_string($value) and ! is_integer($value)) or strlen($value) < 2) {
             return false;
         }
-        
+
         // extract the checkdigit from the number
         $valueDigit = $value[strlen($value) - 1];
 
@@ -564,11 +567,11 @@ class Validation
         // Calculate checksum
         // double every second digit starting from the first after checkDigit
         $valuesum = 0;
-        for ($i = 0;$i < $length;$i++) {
+        for ($i = 0; $i < $length; $i++) {
             $number = ($i % 2 === 0) ? $string[$i] * 2 : $string[$i];
             $valuesum += ($number > 9) ? $number - 9 : $number;
         }
-    
+
         return ($valuesum + $valueDigit) % 10 === 0;
     }
 
@@ -578,23 +581,23 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function macAddress($value) : bool
+    public static function macAddress($value): bool
     {
         return is_string($value) and filter_var($value, FILTER_VALIDATE_MAC) !== false;
     }
 
     /**
      * Validates a value has a max length
-    *
-    * @param string $value
-    * @param int $max
-    * @return boolean
-    */
-    public static function maxLength($value, int $max) : bool
+     *
+     * @param string $value
+     * @param int $max
+     * @return boolean
+     */
+    public static function maxLength($value, int $max): bool
     {
         return (is_string($value) and mb_strlen($value) <= $max);
     }
-  
+
     /**
      * Validates a value is MD5 hash
      *
@@ -602,7 +605,7 @@ class Validation
      * @param boolean $caseInsensitive
      * @return boolean
      */
-    public static function md5($value, bool $caseInsensitive = false) : bool
+    public static function md5($value, bool $caseInsensitive = false): bool
     {
         $pattern = '/^[0-9a-f]{32}$/' . ($caseInsensitive ? 'i' : null);
 
@@ -616,7 +619,7 @@ class Validation
      * @param string|array $mimeTypes
      * @return boolean
      */
-    public static function mimeType($result, $mimeTypes = []) : bool
+    public static function mimeType($result, $mimeTypes = []): bool
     {
         if (is_array($result) and isset($result['tmp_name'])) {
             $result = $result['tmp_name'];
@@ -633,26 +636,26 @@ class Validation
     }
 
     /**
-    * Validates a value has a minimum length
-    *
-    * @param string $value
-    * @param int $min
-    * @return boolean
-    */
-    public static function minLength($value, int $min) : bool
+     * Validates a value has a minimum length
+     *
+     * @param string $value
+     * @param int $min
+     * @return boolean
+     */
+    public static function minLength($value, int $min): bool
     {
         return (is_string($value) and mb_strlen($value) >= $min);
     }
 
     /**
-     * Validates a value is not empty and has anything other than whitespaces.
+     * Validates a value is a string not empty and has anything other than whitespaces.
      *
      * @param string $value
      * @return boolean
      */
-    public static function notBlank($value) : bool
+    public static function notBlank($value): bool
     {
-        if (empty($value) and (string) $value !== '0') {
+        if (empty($value) and ! is_numeric($value) and ! is_bool($value)) {
             return false;
         }
 
@@ -660,14 +663,14 @@ class Validation
     }
 
     /**
-    * Validates a value is not in a list
-    *
-    * @param mixed $value
-    * @param array $list
-    * @param boolean $caseInSensitive
-    * @return boolean
-    */
-    public static function notIn($value, array $list, bool $caseInSensitive = false) : bool
+     * Validates a value is not in a list
+     *
+     * @param mixed $value
+     * @param array $list
+     * @param boolean $caseInSensitive
+     * @return boolean
+     */
+    public static function notIn($value, array $list, bool $caseInSensitive = false): bool
     {
         return ! static::in($value, $list, $caseInSensitive);
     }
@@ -678,7 +681,7 @@ class Validation
      * @param int|float $value
      * @return boolean
      */
-    public static function numeric($value) : bool
+    public static function numeric($value): bool
     {
         return (static::integer($value) or static::float($value));
     }
@@ -690,7 +693,7 @@ class Validation
      * @param string|int $key
      * @return boolean
      */
-    public static function present($value, $key) : bool
+    public static function present($value, $key): bool
     {
         return is_array($value) and array_key_exists($key, $value);
     }
@@ -703,7 +706,7 @@ class Validation
      * @param int|float $max
      * @return boolean
      */
-    public static function range($value, $min, $max) : bool
+    public static function range($value, $min, $max): bool
     {
         if (! is_numeric($value) or ! is_numeric($min) or ! is_numeric($max)) {
             return false;
@@ -719,19 +722,19 @@ class Validation
      * @param string $pattern
      * @return boolean
      */
-    public static function regex($value, string $pattern) : bool
+    public static function regex($value, string $pattern): bool
     {
         return (bool) preg_match($pattern, $value);
     }
 
     /**
-    * Validates a date using a format compatible with the PHP DateTime class.
-    *
-    * @param string $value
-    * @param string $format H:i
-    * @return bool
-    */
-    public static function time($value, string $format = 'H:i') : bool
+     * Validates a date using a format compatible with the PHP DateTime class.
+     *
+     * @param string $value
+     * @param string $format H:i
+     * @return bool
+     */
+    public static function time($value, string $format = 'H:i'): bool
     {
         return static::dateFormat($value, $format);
     }
@@ -743,7 +746,7 @@ class Validation
      * @param boolean $optional
      * @return boolean
      */
-    public static function upload($result, bool $optional = false) : bool
+    public static function upload($result, bool $optional = false): bool
     {
         if (is_array($result) and isset($result['error'])) {
             $result = $result['error'];
@@ -762,21 +765,21 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function uppercase($value) : bool
+    public static function uppercase($value): bool
     {
         return (is_string($value) and ! empty($value) and strtoupper($value) === $value);
     }
 
     /**
-    * Validates a value is a valid URL
-    *
-    * @internal filter_var says https://https://www.google.com is valid
-    *
-    * @param string $value
-    * @param boolean $protocol set to false to validate without protocol. e.g. http:// or https://
-    * @return boolean
-    */
-    public static function url($value, bool $protocol = true) : bool
+     * Validates a value is a valid URL
+     *
+     * @internal filter_var says https://https://www.google.com is valid
+     *
+     * @param string $value
+     * @param boolean $protocol set to false to validate without protocol. e.g. http:// or https://
+     * @return boolean
+     */
+    public static function url($value, bool $protocol = true): bool
     {
         if ($protocol) {
             return (filter_var($value, FILTER_VALIDATE_URL) !== false);
@@ -785,7 +788,7 @@ class Validation
         if (preg_match('/^https?|:\/\//', $value)) {
             return false;
         }
-       
+
         return filter_var('https://' . $value, FILTER_VALIDATE_URL) !== false;
     }
 
@@ -798,7 +801,7 @@ class Validation
      * @param boolean $caseInsensitive Wether to allow uppercase letters
      * @return boolean
      */
-    public static function uuid($value, bool $caseInsensitive = false) : bool
+    public static function uuid($value, bool $caseInsensitive = false): bool
     {
         $pattern = '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/' . ($caseInsensitive ? 'i' : null);
 
