@@ -53,7 +53,7 @@ class Validation
         $result = false;
         $value = strtotime($value);
         $afterDate = strtotime($afterDate);
-        if ($value and $afterDate) {
+        if ($value && $afterDate) {
             $result = $value > $afterDate;
         }
 
@@ -109,7 +109,7 @@ class Validation
         $result = false;
         $value = strtotime($value);
         $beforeDate = strtotime($beforeDate);
-        if ($value and $beforeDate) {
+        if ($value && $beforeDate) {
             $result = $value < $beforeDate;
         }
 
@@ -141,7 +141,7 @@ class Validation
      */
     public static function creditCard($value, string $type = 'any'): bool
     {
-        if (! is_string($value) and ! is_integer($value)) {
+        if (! is_string($value) && ! is_integer($value)) {
             return false;
         }
 
@@ -173,7 +173,7 @@ class Validation
             'visa' => '/^4\d{15}$/',
         ];
 
-        if ($type !== 'any' and ! isset($map[$type])) {
+        if ($type !== 'any' && ! isset($map[$type])) {
             return false;
         }
 
@@ -218,7 +218,7 @@ class Validation
         }
         $dateTime = DateTime::createFromFormat($format, $value);
 
-        return ($dateTime !== false and $dateTime->format($format) === $value);
+        return ($dateTime !== false && $dateTime->format($format) === $value);
     }
 
     /**
@@ -255,7 +255,7 @@ class Validation
     {
         $result = (filter_var($value, FILTER_VALIDATE_EMAIL) !== false);
 
-        if ($result and $checkDNS) {
+        if ($result && $checkDNS) {
             list($account, $domain) = explode('@', $value);
 
             return getmxrr($domain, $mxhosts);
@@ -285,7 +285,7 @@ class Validation
      */
     public static function extension($value, $extensions = []): bool
     {
-        if (! is_string($value) and ! is_array($value)) {
+        if (! is_string($value) && ! is_array($value)) {
             return false;
         }
         if (is_array($value)) {
@@ -328,9 +328,9 @@ class Validation
     {
         $pattern = '/^((?=[a-z0-9-]{1,63}\.)[a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,63}$/';
 
-        $result = (is_string($value) and (bool) preg_match($pattern, $value));
+        $result = (is_string($value) && (bool) preg_match($pattern, $value));
 
-        if ($result and $checkDNS) {
+        if ($result && $checkDNS) {
             $result = (checkdnsrr($value, 'A') !== false);
         }
 
@@ -400,7 +400,7 @@ class Validation
      */
     public static function json($value): bool
     {
-        if (! is_string($value) or empty($value)) {
+        if (! is_string($value) || empty($value)) {
             return false;
         }
         json_decode($value);
@@ -497,7 +497,7 @@ class Validation
         $map = ['both' => 0, 'ipv4' => FILTER_FLAG_IPV4, 'ipv6' => FILTER_FLAG_IPV6];
         $options = ['flags' => $map[$type]];
 
-        return in_array($type, $map) and (bool) filter_var($value, FILTER_VALIDATE_IP, $options);
+        return in_array($type, $map) && (bool) filter_var($value, FILTER_VALIDATE_IP, $options);
     }
 
     /**
@@ -513,7 +513,7 @@ class Validation
         if (static::ip($value) and static::ip($start) and static::ip($end)) {
             $ip = ip2long($value);
 
-            return $ip >= ip2long($start) and $ip <= ip2long($end);
+            return $ip >= ip2long($start) && $ip <= ip2long($end);
         }
 
         return false;
@@ -539,7 +539,7 @@ class Validation
      */
     public static function lowercase($value): bool
     {
-        return (is_string($value) and ! empty($value) and strtolower($value) === $value);
+        return (is_string($value) && ! empty($value) && strtolower($value) === $value);
     }
 
     /**
@@ -553,7 +553,7 @@ class Validation
      */
     public static function luhn($value): bool
     {
-        if ((! is_string($value) and ! is_integer($value)) or strlen($value) < 2) {
+        if ((! is_string($value) && ! is_integer($value)) || strlen($value) < 2) {
             return false;
         }
 
@@ -621,7 +621,7 @@ class Validation
      */
     public static function mimeType($result, $mimeTypes = []): bool
     {
-        if (is_array($result) and isset($result['tmp_name'])) {
+        if (is_array($result) && isset($result['tmp_name'])) {
             $result = $result['tmp_name'];
         }
         if (is_string($mimeTypes)) {
@@ -655,7 +655,7 @@ class Validation
      */
     public static function notBlank($value): bool
     {
-        if (empty($value) and ! is_numeric($value) and ! is_bool($value)) {
+        if (empty($value) && ! is_numeric($value) && ! is_bool($value)) {
             return false;
         }
 
@@ -695,7 +695,7 @@ class Validation
      */
     public static function present($value, $key): bool
     {
-        return is_array($value) and array_key_exists($key, $value);
+        return is_array($value) && array_key_exists($key, $value);
     }
 
     /**
@@ -708,11 +708,11 @@ class Validation
      */
     public static function range($value, $min, $max): bool
     {
-        if (! is_numeric($value) or ! is_numeric($min) or ! is_numeric($max)) {
+        if (! is_numeric($value) || ! is_numeric($min) || ! is_numeric($max)) {
             return false;
         }
 
-        return ($value >= $min and $value <= $max);
+        return ($value >= $min && $value <= $max);
     }
 
     /**
@@ -742,17 +742,17 @@ class Validation
     /**
      * Validates a file was uploaded
      *
-     * @param int|array $result the result of $_FILES['field'] or $_FILES['field']['error']
+     * @param int|array $result the result of $_FILES['field'] || $_FILES['field']['error']
      * @param boolean $optional
      * @return boolean
      */
     public static function upload($result, bool $optional = false): bool
     {
-        if (is_array($result) and isset($result['error'])) {
+        if (is_array($result) && isset($result['error'])) {
             $result = $result['error'];
         }
         // Let test pass if the upload is optional and no file was uploaded
-        if ($optional and $result === UPLOAD_ERR_NO_FILE) {
+        if ($optional && $result === UPLOAD_ERR_NO_FILE) {
             return true;
         }
 
@@ -767,7 +767,7 @@ class Validation
      */
     public static function uppercase($value): bool
     {
-        return (is_string($value) and ! empty($value) and strtoupper($value) === $value);
+        return (is_string($value) && ! empty($value) && strtoupper($value) === $value);
     }
 
     /**
