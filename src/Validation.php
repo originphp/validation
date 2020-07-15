@@ -595,7 +595,7 @@ class Validation
      */
     public static function maxLength($value, int $max): bool
     {
-        return (is_string($value) && mb_strlen($value) <= $max);
+        return (is_scalar($value) && mb_strlen((string) $value) <= $max);
     }
 
     /**
@@ -644,7 +644,7 @@ class Validation
      */
     public static function minLength($value, int $min): bool
     {
-        return (is_string($value) && mb_strlen($value) >= $min);
+        return (is_scalar($value) && mb_strlen((string) $value) >= $min);
     }
 
     /**

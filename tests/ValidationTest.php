@@ -405,12 +405,20 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
     {
         $this->assertTrue(Validation::maxLength('string', 10));
         $this->assertFalse(Validation::maxLength('string', 3));
+
+        $this->assertTrue(Validation::maxLength(123456, 8));
+        $this->assertFalse(Validation::maxLength(123456, 4));
+        $this->assertFalse(Validation::maxLength(null, 3));
     }
 
     public function testMinLength()
     {
         $this->assertTrue(Validation::minLength('password', 8));
         $this->assertFalse(Validation::minLength('nada', 8));
+
+        $this->assertTrue(Validation::minLength(123456, 4));
+        $this->assertFalse(Validation::minLength(123456, 8));
+        $this->assertFalse(Validation::minLength(null, 3));
     }
     public function testNotBlank()
     {
