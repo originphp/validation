@@ -125,7 +125,7 @@ class Validation
      */
     public static function boolean($value, array $values = [true, false, 0, 1, '0', '1']): bool
     {
-        return ($value !== null and in_array($value, $values));
+        return ($value !== null && in_array($value, $values));
     }
 
     /**
@@ -308,7 +308,7 @@ class Validation
     public static function float($value): bool
     {
         if (is_string($value)) {
-            return (bool) filter_var($value, FILTER_VALIDATE_FLOAT) and filter_var($value, FILTER_VALIDATE_INT) === false;
+            return (bool) filter_var($value, FILTER_VALIDATE_FLOAT) && filter_var($value, FILTER_VALIDATE_INT) === false;
         }
 
         return is_float($value);
@@ -371,7 +371,7 @@ class Validation
     {
         $pattern = '/^#[0-9a-f]{6}$/i';
 
-        return is_string($value) and static::regex($value, $pattern);
+        return is_string($value) && static::regex($value, $pattern);
     }
 
     /**
@@ -482,7 +482,7 @@ class Validation
      */
     public static function integer($value): bool
     {
-        return is_int($value) or ctype_digit($value);
+        return is_int($value) || ctype_digit($value);
     }
 
     /**
@@ -510,7 +510,7 @@ class Validation
      */
     public static function ipRange($value, string $start, string $end): bool
     {
-        if (static::ip($value) and static::ip($start) and static::ip($end)) {
+        if (static::ip($value) && static::ip($start) && static::ip($end)) {
             $ip = ip2long($value);
 
             return $ip >= ip2long($start) && $ip <= ip2long($end);
@@ -528,7 +528,7 @@ class Validation
      */
     public static function length($value, int $length): bool
     {
-        return (is_string($value) and mb_strlen($value) === $length);
+        return (is_string($value) && mb_strlen($value) === $length);
     }
 
     /**
@@ -583,7 +583,7 @@ class Validation
      */
     public static function macAddress($value): bool
     {
-        return is_string($value) and filter_var($value, FILTER_VALIDATE_MAC) !== false;
+        return is_string($value) && filter_var($value, FILTER_VALIDATE_MAC) !== false;
     }
 
     /**
@@ -595,7 +595,7 @@ class Validation
      */
     public static function maxLength($value, int $max): bool
     {
-        return (is_string($value) and mb_strlen($value) <= $max);
+        return (is_string($value) && mb_strlen($value) <= $max);
     }
 
     /**
@@ -609,7 +609,7 @@ class Validation
     {
         $pattern = '/^[0-9a-f]{32}$/' . ($caseInsensitive ? 'i' : null);
 
-        return is_string($value) and static::regex($value, $pattern);
+        return is_string($value) && static::regex($value, $pattern);
     }
 
     /**
@@ -644,7 +644,7 @@ class Validation
      */
     public static function minLength($value, int $min): bool
     {
-        return (is_string($value) and mb_strlen($value) >= $min);
+        return (is_string($value) && mb_strlen($value) >= $min);
     }
 
     /**
@@ -683,7 +683,7 @@ class Validation
      */
     public static function numeric($value): bool
     {
-        return (static::integer($value) or static::float($value));
+        return (static::integer($value) || static::float($value));
     }
 
     /**
@@ -805,6 +805,6 @@ class Validation
     {
         $pattern = '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/' . ($caseInsensitive ? 'i' : null);
 
-        return is_string($value) and static::regex($value, $pattern);
+        return is_string($value) && static::regex($value, $pattern);
     }
 }
