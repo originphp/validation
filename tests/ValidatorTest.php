@@ -166,6 +166,36 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         $this->assertNotEmpty($validator->validate(['email' => 'foo']));
     }
 
+    // unreachable
+    public function testValidateInvalidRule()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $validator = new Validator();
+        $validator->add('foo', 'foo');
+        $this->assertEmpty($validator->validate(['foo'=>'bar']));
+        $this->assertNotEmpty($validator->validate(['email' => 'foo']));
+    }
+
+    public function testRules()
+    {
+        $validator = new Validator();
+   
+        $validator->add('name', 'notEmpty');
+        $expected = [
+            'rule' => 'notEmpty',
+            'message' => 'This field cannot be empty',
+            'on' => null,
+            'present' => false,
+            'allowEmpty' => false,
+            'stopOnFail' => false
+        ];
+
+        $this->assertArrayHasKey('name', $validator->rules());
+        $this->assertNotEmpty($validator->rules()['name']);
+        $this->assertEquals(['notEmpty'=>$expected], $validator->rules()['name']);
+        $this->assertEquals(['notEmpty'=>$expected], $validator->rules('name'));
+    }
+
     /**
      * @depends testValidate
      */
@@ -207,6 +237,8 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('email', $errors);
         $this->assertEquals('This field is required', $errors['email'][0]);
+
+        $this->assertEmpty($validator->validate(['email' => 'phpunit@originphp.com']));
     }
 
     public function testValidateOptional()
@@ -218,6 +250,8 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $this->assertEmpty($validator->validate(['email' => '']));
+
+        $this->assertEmpty($validator->validate(['email' => 'phpunit@originphp.com']));
     }
 
     public function testValidatePresent()
@@ -231,6 +265,8 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('email', $errors);
         $this->assertEquals('This field is must be present', $errors['email'][0]);
+
+        $this->assertEmpty($validator->validate(['email' => 'phpunit@originphp.com']));
     }
 
     public function testValidatePresentOption()
@@ -246,6 +282,22 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('email', $errors);
         $this->assertEquals('This field is must be present', $errors['email'][0]);
+
+        $validator = new Validator();
+        $validator->add('email', [
+            'notEmpty' => [
+                'rule' => 'notEmpty',
+                'present' => true,
+                'stopOnFail' => true,
+            ],
+            'email' => [
+                'rule' => 'email'
+            ]
+        ]);
+        $errors = $validator->validate(['foo' => 'bar']);
+        $this->assertArrayHasKey('email', $errors);
+        $this->assertEquals('This field is must be present', $errors['email'][0]);
+        $this->assertCount(1, $errors['email']);
     }
 
     public function testValidateAllowEmptyOption()
