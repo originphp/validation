@@ -1,4 +1,16 @@
 <?php
+/**
+ * OriginPHP Framework
+ * Copyright 2018 - 2020 Jamiel Sharief.
+ *
+ * Licensed under The MIT License
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * @copyright   Copyright (c) Jamiel Sharief
+ * @link        https://www.originphp.com
+ * @license     https://opensource.org/licenses/mit-license.php MIT License
+ */
 namespace Origin\Validation\Test;
 
 use Origin\Validation\Validation;
@@ -431,6 +443,18 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Validation::notBlank('   '));
         $this->assertTrue(Validation::notBlank(' o'));
         $this->assertTrue(Validation::notBlank('o '));
+    }
+
+    public function testNotEmpty()
+    {
+        $this->assertTrue(Validation::notEmpty('foo'));
+        $this->assertTrue(Validation::notEmpty(['key' => 'value']));
+        $this->assertTrue(Validation::notEmpty(['tmp_name' => 'foo']));
+       
+        $this->assertFalse(Validation::notEmpty(null));
+        $this->assertFalse(Validation::notEmpty(''));
+        $this->assertFalse(Validation::notEmpty([]));
+        $this->assertFalse(Validation::notEmpty(['tmp_name' => null]));
     }
 
     public function testNumeric()
