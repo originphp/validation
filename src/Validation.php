@@ -1,8 +1,7 @@
 <?php
-
 /**
  * OriginPHP Framework
- * Copyright 2018 - 2019 Jamiel Sharief.
+ * Copyright 2018 - 2020 Jamiel Sharief.
  *
  * Licensed under The MIT License
  * The above copyright notice and this permission notice shall be included in all copies or substantial
@@ -14,15 +13,11 @@
  */
 
 declare(strict_types=1);
-
 namespace Origin\Validation;
 
 use DateTime;
 use Exception;
 
-/**
- * @todo go back to credit cards test
- */
 class Validation
 {
     /**
@@ -660,6 +655,49 @@ class Validation
         }
 
         return (bool) preg_match('/[^\s]+/', (string) $value);
+    }
+
+    /**
+     * Checks that a value is not empty, a value is empty when :
+     *
+     * - value is `null`
+     * - value is an empty string
+     * - value is an empty array
+     * - value is an empty file upload
+     *
+     * @param mixed $value
+     * @return boolean
+     */
+    public static function notEmpty($value): bool
+    {
+        return static::empty($value) === false;
+    }
+
+    /**
+    * Checks if a value is empty, it is only empty when
+    *
+    * - value is `null`
+    * - value is an empty string
+    * - value is an empty array
+    * - value is an empty file upload
+    *
+    * @param mixed $value
+    * @return boolean
+    */
+    private static function empty($value): bool
+    {
+        if (is_null($value)) {
+            return true;
+        }
+        if (is_string($value) && trim($value) === '') {
+            return true;
+        }
+      
+        if (is_array($value)) {
+            return empty($value) || (array_key_exists('tmp_name', $value) && empty($value['tmp_name']));
+        }
+
+        return false;
     }
 
     /**
