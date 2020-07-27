@@ -4,7 +4,7 @@
 [![build](https://travis-ci.org/originphp/validation.svg?branch=master)](https://travis-ci.org/originphp/validation)
 [![coverage](https://coveralls.io/repos/github/originphp/validation/badge.svg?branch=master)](https://coveralls.io/github/originphp/validation?branch=master)
 
-This is the new Validation library.
+This provides a `Validation` library and the `Validator` class for setting up and running validation rules on arrays of data.
 
 ## Installation
 
@@ -14,7 +14,7 @@ To install this package
 $ composer require originphp/validation
 ```
 
-## Usage
+## Validation Library
 
 For example
 
@@ -22,7 +22,42 @@ For example
 $bool = Validation::ip('192.168.1.25');
 ```
 
-## Rules
+The full list of validation rules are listed below.
+
+## Validator
+
+```php
+$validator = new Validator();
+
+$validator->add('name','required')
+          ->add('email',[
+              'optional', // rule name
+              'email' => [
+                  'rule' => 'email' // rule name
+                  'message' => 'Invalid email address' // custom message
+              ]
+          ]);
+```
+
+You can also use custom validation rules
+
+```php 
+$validator->add('first_name', 'uniqueRuleName', [
+        'rule' => [new NameAssert(),'firstName'] // [$object,'method']
+]);
+```
+
+Or to use a closure
+
+```php 
+$validator->add('status', 'uniqueRuleName', [
+      'rule' => function ($value) {
+          return $value === 'active';
+      }
+  ]);
+```
+
+## Validation Rules
 
 ### accepted
 

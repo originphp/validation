@@ -81,8 +81,12 @@ class Validator
      *
      *  $validator
      *      ->add('name','notEmpty')
-     *      ->add('email','email', ['message'=>'Invalid Email address'])  //uses the alias for the rule name
-     *      ->add('code','valid', ['rule'=> ['in',[1,2,3]]]) // set the rule
+     *      ->add('email','email', [
+     *                 'message'=>'Invalid Email address'
+     *            ])  // uses the alias for the rule name
+     *      ->add('code','valid', [
+     *                  'rule'=> ['in',[1,2,3]]
+     *            ]) // set the rule
      *
      *  // to create multiple validation rules on the same field (second param is array)
      *
@@ -94,6 +98,20 @@ class Validator
      *              'message' => 'Invalid email address'
      *          ]
      *      ]);
+     *
+     * // you can also use objects
+     *
+     *  $validator->add('status', 'uniqueName', [
+     *       'rule' => [$this, 'method']
+     *   ]);
+     *
+     * // and closures
+     *
+     * $validator->add('status', 'uniqueName', [
+     *       'rule' => function ($value) {
+     *           return $value === 'active';
+     *       }
+     *   ]);
      *
      * @param string $field name of the field to validate
      * @param string|array $name rule name for single rule or an array for multiple rules
@@ -212,7 +230,6 @@ class Validator
 
         foreach ($this->validationRules as $field => $validationRules) {
             $present = array_key_exists($field, $data);
-
             $value = $data[$field] ?? null;
             $isEmpty = ! Validation::notEmpty($value);
 
@@ -284,6 +301,7 @@ class Validator
         // handle args etc
         $rule = $validationRule['rule'];
         $args = [$value];
+
         if (is_array($validationRule['rule'])) {
             $rule = array_shift($validationRule['rule']);
         }
