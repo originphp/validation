@@ -123,7 +123,7 @@ class Validator
      *   - stopOnFail: default:false wether to continue if validation fails
      *   - present: default:false the field (key) must be present (but can be empty)
      *
-     * @return \Origin\Validator
+     * @return \Origin\Validation\Validator
      */
     public function add(string $field, $name, array $options = [])
     {
@@ -204,7 +204,7 @@ class Validator
      *
      * @param string $field
      * @param string $rule
-     * @return \Origin\Validator
+     * @return \Origin\Validation\Validator
      */
     public function remove(string $field, string $rule = null): Validator
     {

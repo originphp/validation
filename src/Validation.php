@@ -92,7 +92,7 @@ class Validation
      * Validates a date is before a certain date
      *
      * @param string $value strtotime compatabile date
-     * @param string $afterDate strtotime compatabile date
+     * @param string $beforeDate strtotime compatabile date
      * @return boolean
      */
     public static function before($value, string $beforeDate = 'now'): bool
@@ -115,7 +115,7 @@ class Validation
      * Validates a value is a boolean type
      *
      * @param bool|int|string $value
-     * @param array values array of boolean values
+     * @param array $values array of boolean values
      * @return boolean
      */
     public static function boolean($value, array $values = [true, false, 0, 1, '0', '1']): bool
@@ -407,7 +407,7 @@ class Validation
      * Validates a value is greater than
      *
      * @param int|float $value
-     * @param int|float $max
+     * @param int|float $min
      * @return boolean
      */
     public static function lessThan($value, $min): bool
@@ -419,7 +419,7 @@ class Validation
      * Validates a value is greater than
      *
      * @param int|float $value
-     * @param int|float $max
+     * @param int|float $min
      * @return boolean
      */
     public static function lessThanOrEqual($value, $min): bool
@@ -518,7 +518,7 @@ class Validation
      * Validates a value has a certain length
      *
      * @param string $value
-     * @param int $max
+     * @param int $length
      * @return boolean
      */
     public static function length($value, int $length): bool
