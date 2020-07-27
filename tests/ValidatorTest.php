@@ -32,7 +32,6 @@ class Assert
 class ValidatorTest extends \PHPUnit\Framework\TestCase
 {
    
-
     /**
      * Tests that it handles the different type of rules, string, single rule array and multiple rule array
      *
@@ -172,7 +171,7 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         $this->expectException(InvalidArgumentException::class);
         $validator = new Validator();
         $validator->add('foo', 'foo');
-        $this->assertEmpty($validator->validate(['foo'=>'bar']));
+        $this->assertEmpty($validator->validate(['foo' => 'bar']));
         $this->assertNotEmpty($validator->validate(['email' => 'foo']));
     }
 
@@ -192,8 +191,8 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
 
         $this->assertArrayHasKey('name', $validator->rules());
         $this->assertNotEmpty($validator->rules()['name']);
-        $this->assertEquals(['notEmpty'=>$expected], $validator->rules()['name']);
-        $this->assertEquals(['notEmpty'=>$expected], $validator->rules('name'));
+        $this->assertEquals(['notEmpty' => $expected], $validator->rules()['name']);
+        $this->assertEquals(['notEmpty' => $expected], $validator->rules('name'));
     }
 
     /**
