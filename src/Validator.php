@@ -28,6 +28,7 @@ use InvalidArgumentException;
  *  - regex rules which have the name as regex
  *  - using a model method
  *  - validation rules not having string key
+ *  - confirm method
  */
 class Validator
 {
@@ -118,7 +119,7 @@ class Validator
      * @param array $options options
     *    - rule: name of rule, array, callbable e.g. required, numeric, ['date', 'Y-m-d'],[$this,'method']
      *   - message: the error message to show if the rule fails
-     *   - on: default:null. set to create or update to run the rule only on thos
+     *   - on: default:null. set to create or update to run the rule only on those
      *   - allowEmpty: default:false validation will be pass on empty values
      *   - stopOnFail: default:false wether to continue if validation fails
      *   - present: default:false the field (key) must be present (but can be empty)

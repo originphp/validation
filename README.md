@@ -22,7 +22,7 @@ For example
 $bool = Validation::ip('192.168.1.25');
 ```
 
-The full list of validation rules are listed below.
+The full list of validation rules are listed below, after the next section.
 
 ## Validator
 
@@ -37,9 +37,20 @@ $validator->add('name','required')
                   'message' => 'Invalid email address' // custom message
               ]
           ]);
+
+$errors = $validator->validate($_POST);
 ```
 
-You can also use custom validation rules
+Rule options:
+
+- rule: name of rule, array, callbable e.g. required, numeric, ['date', 'Y-m-d'],[$this,'method']
+- message: the error message to show if the rule fails, if not supplied a default one will be used.
+- on: default:null. set to create or update to run the rule only on those, works with second argument of `validate`
+- allowEmpty: default:false validation will be pass on empty values
+- stopOnFail: default:false wether to continue if validation fails
+- present: default:false the field (key) must be present (but can be empty)
+
+You can also use custom validation rules using 
 
 ```php 
 $validator->add('first_name', 'uniqueRuleName', [
