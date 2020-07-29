@@ -44,7 +44,6 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
             'rule' => 'notEmpty',
             'message' => 'This field cannot be empty',
             'on' => null,
-            'present' => false,
             'allowEmpty' => false,
             'stopOnFail' => false
         ];
@@ -56,7 +55,6 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
             'rule' => 'notEmpty',
             'message' => 'Need input',
             'on' => null,
-            'present' => false,
             'allowEmpty' => false,
             'stopOnFail' => false
         ];
@@ -71,7 +69,6 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
             'rule' => 'required',
             'message' => 'This field is required',
             'on' => null,
-            'present' => false,
             'allowEmpty' => false,
             'stopOnFail' => false
         ];
@@ -82,7 +79,6 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
             'rule' => 'email',
             'message' => 'Bad email address',
             'on' => null,
-            'present' => false,
             'allowEmpty' => false,
             'stopOnFail' => false
         ];
@@ -184,7 +180,6 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
             'rule' => 'notEmpty',
             'message' => 'This field cannot be empty',
             'on' => null,
-            'present' => false,
             'allowEmpty' => false,
             'stopOnFail' => false
         ];
@@ -268,37 +263,6 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         $this->assertEmpty($validator->validate(['email' => 'phpunit@originphp.com']));
     }
 
-    public function testValidatePresentOption()
-    {
-        $validator = new Validator();
-        $validator->add('email', [
-            'email' => [
-                'rule' => 'email',
-                'present' => true
-            ]
-        ]);
-        $errors = $validator->validate(['name' => 'foo']);
-
-        $this->assertArrayHasKey('email', $errors);
-        $this->assertEquals('This field is must be present', $errors['email'][0]);
-
-        $validator = new Validator();
-        $validator->add('email', [
-            'notEmpty' => [
-                'rule' => 'notEmpty',
-                'present' => true,
-                'stopOnFail' => true,
-            ],
-            'email' => [
-                'rule' => 'email'
-            ]
-        ]);
-        $errors = $validator->validate(['foo' => 'bar']);
-        $this->assertArrayHasKey('email', $errors);
-        $this->assertEquals('This field is must be present', $errors['email'][0]);
-        $this->assertCount(1, $errors['email']);
-    }
-
     public function testValidateAllowEmptyOption()
     {
         $validator = new Validator();
@@ -321,6 +285,20 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         $errors = $validator->validate(['email' => '1-2-3']);
         $this->assertArrayHasKey('email', $errors);
         $this->assertCount(2, $errors['email']);
+    }
+
+    public function testValidateConfirm()
+    {
+        $validator = new Validator();
+        $validator->add('password', [
+            'confirm'
+        ]);
+        $errors = $validator->validate(['password'=>'foo']);
+        $this->assertNotEmpty($errors);
+        $errors = $validator->validate(['password'=>'foo','password_confirm'=>'bar']);
+        $this->assertNotEmpty($errors);
+        $errors = $validator->validate(['password'=>'foo','password_confirm'=>'foo']);
+        $this->assertEmpty($errors);
     }
 
     /**

@@ -26,6 +26,8 @@ The full list of validation rules are listed below, after the next section.
 
 ## Validator
 
+To validate an array of values
+
 ```php
 $validator = new Validator();
 
@@ -48,7 +50,6 @@ Rule options:
 - on: default:null. set to create or update to run the rule only on those, works with second argument of `validate`
 - allowEmpty: default:false validation will be pass on empty values
 - stopOnFail: default:false wether to continue if validation fails
-- present: default:false the field (key) must be present (but can be empty)
 
 You can also use custom validation rules using 
 
@@ -67,6 +68,15 @@ $validator->add('status', 'uniqueRuleName', [
       }
   ]);
 ```
+
+
+The `Validator` uses the `Validation` rules and has 3 additional validation rules built in, `required`, `optional`, and `present`.
+
+These rules should be called first, and for `required` and `present`, if they fail no further validation rules will run.
+
+- required: this means the key must be `present` and the value is `notEmpty`
+- optional: this means that data is optional, if the value is `empty` then it will not run any more validation rules.
+- present: this means that the data array must have the key present, its irrelevant if the value is empty or not.
 
 ## Validation Rules
 
@@ -409,6 +419,20 @@ Validates a value is not empty and has anything other than whitespaces.
 ```php
 Validation::notBlank('foo');
 ```
+
+### notEmpty
+
+Validates a value is not empty, a value is empty
+
+- `null`
+- empty string `''`
+- an empty array
+- empty file upload
+
+```php
+Validation::notEmpty('foo');
+```
+
 
 ### notIn
 

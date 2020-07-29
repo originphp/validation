@@ -73,6 +73,24 @@ class Validator
     ];
 
     /**
+     * Array of Objects or Classes with static methods
+     *
+     * @var array
+     */
+    private $providers = [];
+
+    /**
+     * @param array $options
+     */
+    public function __construct(array $options = [])
+    {
+        $options += [
+            'providers' => [Validation::class]
+        ];
+        $this->providers = $options['providers'];
+    }
+
+    /**
      * Adds a validation rule, if you provide just a string, then the rule will be created with the same name as
      * the rule.
      *
@@ -122,7 +140,6 @@ class Validator
      *   - on: default:null. set to create or update to run the rule only on those
      *   - allowEmpty: default:false validation will be pass on empty values
      *   - stopOnFail: default:false wether to continue if validation fails
-     *   - present: default:false the field (key) must be present (but can be empty)
      *
      * @return \Origin\Validation\Validator
      */
@@ -151,7 +168,6 @@ class Validator
                 'rule' => $name,
                 'message' => null,
                 'on' => null,
-                'present' => false,
                 'allowEmpty' => false,
                 'stopOnFail' => false
             ];
@@ -260,17 +276,15 @@ class Validator
                     continue;
                 }
 
-                # Check Options (present & allowEmpty)
-                if ($validationRule['present'] === true && ! $present) {
-                    $errors[$field][] = $this->messageMap['present'];
-                    if ($validationRule['stopOnFail']) {
-                        break;
-                    }
+                if ($validationRule['allowEmpty'] === true && $isEmpty) {
                     continue;
                 }
 
-                if ($validationRule['allowEmpty'] === true && $isEmpty) {
-                    continue;
+                if ($validationRule['rule'] === 'confirm') {
+                    $otherField = $data[$field .'_confirm'] ?? null;
+                    $validationRule['rule'] = function ($value) use ($otherField) {
+                        return $value == $otherField;
+                    };
                 }
 
                 # Carry out validation
@@ -318,11 +332,18 @@ class Validator
             $args = array_merge([$value], $validationRule['rule']);
         }
        
-        // Check validation class
-        if (is_string($rule) && method_exists(Validation::class, $rule)) {
-            return forward_static_call([Validation::class, $rule], ...$args);
+        if (is_string($rule)) {
+            foreach ($this->providers as $provider) {
+                // run on classes e.g. Validation::class
+                if (is_string($provider) && method_exists($provider, $rule)) {
+                    return forward_static_call([$provider, $rule], ...$args);
+                }
+                if (is_object($provider) && method_exists($provider, $rule)) {
+                    return call_user_func_array([$provider,$rule], $args);
+                }
+            }
         }
-
+     
         throw new InvalidArgumentException('Invalid validation rule');
     }
 
