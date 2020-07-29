@@ -553,7 +553,7 @@ class Validation
         }
 
         // extract the checkdigit from the number
-        $valueDigit = $value[strlen($value) - 1];
+        $valueDigit = (int) $value[strlen($value) - 1];
 
         // reverse the number order and calculate length
         $string = strrev(substr($value, 0, -1));
@@ -563,7 +563,7 @@ class Validation
         // double every second digit starting from the first after checkDigit
         $valuesum = 0;
         for ($i = 0; $i < $length; $i++) {
-            $number = ($i % 2 === 0) ? $string[$i] * 2 : $string[$i];
+            $number = ($i % 2 === 0) ? (int) $string[$i] * 2 : (int) $string[$i];
             $valuesum += ($number > 9) ? $number - 9 : $number;
         }
 
