@@ -31,7 +31,7 @@ class Assert
 
 class ValidatorTest extends \PHPUnit\Framework\TestCase
 {
-   
+    
     /**
      * Tests that it handles the different type of rules, string, single rule array and multiple rule array
      *
@@ -376,5 +376,15 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         ]);
         $this->assertEmpty($validator->validate(['status' => 'active']));
         $this->assertNotEmpty($validator->validate(['status' => 'foo']));
+    }
+
+    public function testCustomProviders()
+    {
+        $validator = new Validator(['providers'=>[new Assert()]]);
+        $validator->add('active', 'custom', [
+            'rule' => 'assertTrue'
+        ]);
+        $this->assertEmpty($validator->validate(['active'=>true]));
+        $this->assertNotEmpty($validator->validate(['active'=>false]));
     }
 }
