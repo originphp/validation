@@ -120,7 +120,7 @@ class Validation
      */
     public static function boolean($value, array $values = [true, false, 0, 1, '0', '1']): bool
     {
-        return ($value !== null && in_array($value, $values));
+        return ($value !== null && in_array($value, $values, true));
     }
 
     /**
