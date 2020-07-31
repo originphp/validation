@@ -78,6 +78,43 @@ These rules should be called first, and for `required` and `present`, if they fa
 - optional: this means that data is optional, if the value is `empty` then it will not run any more validation rules.
 - present: this means that the data array must have the key present, its irrelevant if the value is empty or not.
 
+## ValidateTrait
+
+You can add validation any Plain Old PHP Object.
+
+```php
+class Popo
+{
+    use ValidateTrait;
+
+    public $name;
+    public $email;
+
+    public function __construct()
+    {
+        $this->validate('name','required');
+        $this->validate('email',[
+            'required',
+            'email'
+        ]);
+    }
+}
+```
+
+Then you can check its valid
+
+```php
+$popo = new Popo();
+$popo->name = 'foo';
+$popo->email = 'foo@example.com';
+
+if(!$popo->validates()){
+    $errors = $popo->errors();
+}
+```
+
+You can 
+
 ## Validation Rules
 
 ### accepted
