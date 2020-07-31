@@ -293,11 +293,11 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         $validator->add('password', [
             'confirm'
         ]);
-        $errors = $validator->validate(['password'=>'foo']);
+        $errors = $validator->validate(['password' => 'foo']);
         $this->assertNotEmpty($errors);
-        $errors = $validator->validate(['password'=>'foo','password_confirm'=>'bar']);
+        $errors = $validator->validate(['password' => 'foo','password_confirm' => 'bar']);
         $this->assertNotEmpty($errors);
-        $errors = $validator->validate(['password'=>'foo','password_confirm'=>'foo']);
+        $errors = $validator->validate(['password' => 'foo','password_confirm' => 'foo']);
         $this->assertEmpty($errors);
     }
 
@@ -380,11 +380,11 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
 
     public function testCustomProviders()
     {
-        $validator = new Validator(['providers'=>[new Assert()]]);
+        $validator = new Validator(['providers' => [new Assert()]]);
         $validator->add('active', 'custom', [
             'rule' => 'assertTrue'
         ]);
-        $this->assertEmpty($validator->validate(['active'=>true]));
-        $this->assertNotEmpty($validator->validate(['active'=>false]));
+        $this->assertEmpty($validator->validate(['active' => true]));
+        $this->assertNotEmpty($validator->validate(['active' => false]));
     }
 }
