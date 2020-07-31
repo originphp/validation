@@ -70,7 +70,7 @@ trait ValidateTrait
      * @param string $error
      * @return void
      */
-    public function invalidate(string $field, string $error) : void
+    public function invalidate(string $field, string $error): void
     {
         if (! isset($this->validationErrors[$field])) {
             $this->validationErrors[$field] = [];
@@ -90,6 +90,7 @@ trait ValidateTrait
             get_object_vars($this),
             $isNewRecord
         );
+
         return empty($this->validationErrors);
     }
 
@@ -98,7 +99,7 @@ trait ValidateTrait
      *
      * @return \Origin\Validation\Validator
      */
-    protected function validator(): Validator
+    public function validator(): Validator
     {
         if (! $this->validator) {
             $this->validator = new Validator();
