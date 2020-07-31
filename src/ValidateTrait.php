@@ -28,8 +28,7 @@ trait ValidateTrait
     /**
      * @var array
      */
-    private $validationErrors = [];
-
+    protected $validationErrors = [];
 
     /**
      * If validation fails you can use this to work with errors
@@ -62,6 +61,21 @@ trait ValidateTrait
     public function validate(string $field, $name, array $options = []): void
     {
         $this->validator()->add($field, $name, $options);
+    }
+
+    /**
+     * Invalidates a field
+     *
+     * @param string $field
+     * @param string $error
+     * @return void
+     */
+    public function invalidate(string $field, string $error) : void
+    {
+        if (! isset($this->validationErrors[$field])) {
+            $this->validationErrors[$field] = [];
+        }
+        $this->validationErrors[$field][] = $error;
     }
 
     /**

@@ -40,5 +40,8 @@ class ValidateTraitTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEmpty($popo->errors());
         $this->assertEmpty($popo->errors('name'));
+
+        $popo->invalidate('foo', 'bar');
+        $this->assertEquals(['bar'], $popo->errors('foo'));
     }
 }
