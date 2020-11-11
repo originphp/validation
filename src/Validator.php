@@ -44,7 +44,7 @@ class Validator
         'accepted' => 'This must be accepted',
         'boolean' => 'This value must be true or false',
         'alpha' => 'This value can only contain letters',
-        'alphaNumeric' => 'This value can only contain letters, numbers, dashes and underscores',
+        'alphaNumeric' => 'This value can only contain letters and numbers',
         'array' => 'This value must be an array',
         'confirm' => 'The confirmed value does not match',
         'date' => 'Invalid date',
