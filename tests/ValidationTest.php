@@ -14,6 +14,7 @@
 namespace Origin\Validation\Test;
 
 use Origin\Validation\Validation;
+use Origin\Validation\Validator;
 
 class ValidationTest extends \PHPUnit\Framework\TestCase
 {
@@ -505,5 +506,17 @@ class ValidationTest extends \PHPUnit\Framework\TestCase
         $this->assertFalse(Validation::uuid('60837a81-2aa1-4568-b5a9e4385957b21b'));
         $this->assertFalse(Validation::uuid('60837A81-2AA1-4568-B5A9-E4385957B21B'));
         $this->assertTrue(Validation::uuid('60837A81-2AA1-4568-B5A9-E4385957B21B', true));
+    }
+
+    public function testHex()
+    {
+        $this->assertTrue(Validation::hex('cbd18db4cc2f85cedef654fccc4a4d8'));
+        $this->assertFalse(Validation::hex('a-Z'));
+    }
+
+    public function testString()
+    {
+        $this->assertTrue(Validation::string('foo'));
+        $this->assertFalse(Validation::string(1234));
     }
 }

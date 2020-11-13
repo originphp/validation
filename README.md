@@ -296,6 +296,14 @@ Validates a value is greater than or equals a value.
 Validation::greaterThanOrEqual(4,1);
 ```
 
+### hex
+
+Validates a hexadecimal string.
+
+```php
+Validation::hex('b1816172fd2ba98f3af520ef572e3a47');
+```
+
 ### hexColor
 
 Validates a value is a hex color
@@ -514,6 +522,14 @@ Validates a string using a REGEX pattern.
 
 ```php
 Validation::regex('foo','/foo/');
+```
+
+### string
+
+Validates that a value is a string
+
+```php
+Validation::string('foo);
 ```
 
 ### time

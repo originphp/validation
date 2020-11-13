@@ -355,6 +355,20 @@ class Validation
     {
         return $value >= $max;
     }
+    
+
+    /**
+     * Validates a string only contains hexidecimal characters
+     *
+     * @param string $value
+     * @return boolean
+     */
+    public static function hex($value, bool $insensitive = false) :bool
+    {
+        $pattern = '/^[0-9a-f]+$/' . ($insensitive ? 'i' : null);
+
+        return is_string($value) && static::regex($value, $pattern);
+    }
 
     /**
      * Validates a value is a hex color
@@ -762,7 +776,19 @@ class Validation
      */
     public static function regex($value, string $pattern): bool
     {
-        return (bool) preg_match($pattern, $value);
+        return is_string($value) && (bool) preg_match($pattern, $value);
+    }
+
+
+    /**
+     * Validates a value is a string
+     *
+     * @param mixed $value
+     * @return boolean
+     */
+    public static function string($value) : bool
+    {
+        return is_string($value);
     }
 
     /**
