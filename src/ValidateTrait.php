@@ -46,7 +46,8 @@ trait ValidateTrait
     }
 
     /**
-     * Validates a field
+     * Sets the validation rules for a field, existing rules (if any) for this field will be
+     * overwritten.
      *
      * @param string $field name of the field to validate
      * @param string|array $name rule name for single rule or an array for multiple rules
@@ -60,6 +61,7 @@ trait ValidateTrait
      */
     public function validate(string $field, $name, array $options = []): void
     {
+        $this->validator()->remove($field);
         $this->validator()->add($field, $name, $options);
     }
 

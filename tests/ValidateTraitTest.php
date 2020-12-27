@@ -44,4 +44,16 @@ class ValidateTraitTest extends \PHPUnit\Framework\TestCase
         $popo->invalidate('foo', 'bar');
         $this->assertEquals(['bar'], $popo->errors('foo'));
     }
+
+    public function testValidateOverride()
+    {
+        $popo = new Popo();
+        $popo->validate('email', ['required','email']);
+        $popo->validate('email', ['optional','email']);
+
+        $rules = $popo->validator()->rules('email');
+
+        $this->assertArrayHasKey('optional', $rules);
+        $this->assertArrayNotHasKey('required', $rules);
+    }
 }

@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [1.6.0] - 2020-12-27
+
+### Changed
+
+- Changed ValidationTrait validate method behavior to overwrite validation rules if the method is called again with the same field, this is consistent and intuitive.
+
 ## [1.5.0] - 2020-11-13
 
 ### Added

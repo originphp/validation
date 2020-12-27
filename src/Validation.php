@@ -751,7 +751,7 @@ class Validation
     }
 
     /**
-     * Validates a number is in range
+     * Validates a number is in a range
      *
      * @param int|float $value
      * @param int|float $min
