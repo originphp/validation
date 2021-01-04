@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed minimum PHP version to 7.3
 - Change minimum PHPUnit to 9.2
 
+## Fixed
+
+- Fixed credit card validation PHP 8.0
+- Fixed IP validation PHP 8.0
+
 ## [1.6.0] - 2020-12-27
 
 ### Changed
