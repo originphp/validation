@@ -140,7 +140,7 @@ class Validation
             return false;
         }
 
-        $value = str_replace([' ', '-'], '', $value);
+        $value = str_replace([' ', '-'], '', (string) $value);
 
         // 06.12.2019 - Decided to write the regex rules from scratch since
         // the public domain ones seem to be outdated.
@@ -503,10 +503,14 @@ class Validation
      */
     public static function ip($value, string $type = 'both'): bool
     {
-        $map = ['both' => 0, 'ipv4' => FILTER_FLAG_IPV4, 'ipv6' => FILTER_FLAG_IPV6];
-        $options = ['flags' => $map[$type]];
-
-        return in_array($type, $map) && (bool) filter_var($value, FILTER_VALIDATE_IP, $options);
+        $flags = 0;
+        if($type === 'ipv4'){
+            $flags = FILTER_FLAG_IPV4;
+        }elseif($type === 'ipv6'){
+            $flags = FILTER_FLAG_IPV6;
+        }
+      
+        return (bool) filter_var($value, FILTER_VALIDATE_IP, ['flags'=> $flags]);
     }
 
     /**
