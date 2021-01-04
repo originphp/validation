@@ -1,7 +1,7 @@
 # Validation
 
 ![license](https://img.shields.io/badge/license-MIT-brightGreen.svg)
-[![build](https://travis-ci.org/originphp/validation.svg?branch=master)](https://travis-ci.org/originphp/validation)
+[![build](https://github.com/originphp/validation/workflows/CI/badge.svg)](https://github.com/validation/collection/actions)
 [![coverage](https://coveralls.io/repos/github/originphp/validation/badge.svg?branch=master)](https://coveralls.io/github/originphp/validation?branch=master)
 
 This provides a `Validation` library and the `Validator` class for setting up and running validation rules on arrays of data.
