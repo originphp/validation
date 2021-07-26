@@ -356,7 +356,6 @@ class Validation
         return $value >= $max;
     }
     
-
     /**
      * Validates a string only contains hexidecimal characters
      *
@@ -504,13 +503,13 @@ class Validation
     public static function ip($value, string $type = 'both'): bool
     {
         $flags = 0;
-        if($type === 'ipv4'){
+        if ($type === 'ipv4') {
             $flags = FILTER_FLAG_IPV4;
-        }elseif($type === 'ipv6'){
+        } elseif ($type === 'ipv6') {
             $flags = FILTER_FLAG_IPV6;
         }
       
-        return (bool) filter_var($value, FILTER_VALIDATE_IP, ['flags'=> $flags]);
+        return (bool) filter_var($value, FILTER_VALIDATE_IP, ['flags' => $flags]);
     }
 
     /**
@@ -640,6 +639,7 @@ class Validation
         if (is_string($mimeTypes)) {
             $mimeTypes = [$mimeTypes];
         }
+
         $mimeType = mime_content_type($result);
         if ($mimeType === false) {
             throw new Exception('Unable to determine the mimetype');
@@ -734,12 +734,12 @@ class Validation
     /**
      * Checks if a value is numeric (integer or float)
      *
-     * @param int|float $value
+     * @param mixed $value
      * @return boolean
      */
     public static function numeric($value): bool
     {
-        return (static::integer($value) || static::float($value));
+        return is_numeric($value);
     }
 
     /**
@@ -782,7 +782,6 @@ class Validation
     {
         return is_string($value) && (bool) preg_match($pattern, $value);
     }
-
 
     /**
      * Validates a value is a string
